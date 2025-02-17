@@ -1,0 +1,10 @@
+import numpy as np
+A = np.array([[1, -2, 3],[4,  0, -1],[-2, 1, 5]])
+norm_1 = np.linalg.norm(A, 1)
+norm_inf = np.linalg.norm(A, np.inf) 
+norm_fro = np.linalg.norm(A, 'fro')  
+norm_2 = np.linalg.norm(A, 2)       
+print(f"Norm 1 (Column Norm): {norm_1}")
+print(f"Infinity Norm (Row Norm): {norm_inf}")
+print(f"Frobenius Norm: {norm_fro}")
+print(f"Spectral Norm (Largest Singular Value): {norm_2}")

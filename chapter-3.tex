@@ -1,0 +1,2052 @@
+\chapter{مفاهیمی از جبر خطی عددی}
+\section{ماتریس معین مثبت}
+\begin{definition}
+	یک ماتریس مربعی \( A \) از مرتبه \( n \times n \) را \textbf{معین مثبت} می‌نامیم اگر:
+	
+	\[
+	x^T A x > 0 \quad \forall x \neq 0
+	\]
+	
+	که در آن:
+	\begin{itemize}
+		\item \( A \) یک ماتریس متقارن است (\( A^T = A \)).
+		\item \( x \) یک بردار غیرصفر از بعد \( n \) است.
+		\item \( x^T A x \) یک عدد اسکالر است که نتیجه ضرب داخلی بردار \( x \) و تصویر آن توسط ماتریس \( A \) است.
+	\end{itemize}
+\end{definition}
+\subsection*{خواص ماتریس‌های معین مثبت}
+
+\begin{enumerate}
+	\item \textbf{‌مقدارهای ویژه:} 
+	همه ‌مقدارهای ویژه ماتریس \( A \) مثبت هستند:
+	\[
+	\lambda_i > 0 \quad \forall i
+	\]
+	
+	\item \textbf{دترمینان بلوک‌ها:} 
+	دترمینان هر زیرماتریس اصلی \( A \) مثبت است.
+	
+	\item \textbf{شرط ضرب داخلی:} 
+	برای هر بردار \( x \neq 0 \)، داریم \( x^T A x > 0 \).
+	
+	\item \textbf{تجزیه چولسکی:} 
+	ماتریس \( A \) قابل تجزیه به \( A = L L^T \) است، که در آن \( L \) یک ماتریس مثلثی پایینی با درایه‌های مثبت در قطر است.
+	
+	\item \textbf{شکل ماتریسی:}
+	اگر \( A = B^T B \) باشد، که در آن \( B \) یک ماتریس غیرتکین است، آنگاه \( A \) معین مثبت است.
+\end{enumerate}
+
+\subsection*{روش‌های بررسی معین مثبت بودن یک ماتریس}
+
+برای بررسی اینکه آیا یک ماتریس \( A \) معین مثبت است یا خیر، می‌توان از روش‌های زیر استفاده کرد:
+\begin{enumerate}
+	\item \textbf{محاسبه ویژه‌مقدارها:}
+	اگر همه مقدارهای ویژه \( A \) مثبت باشند، آنگاه \( A \) معین مثبت است.
+	
+	\item \textbf{دترمینان بلوک‌ها:}
+	دترمینان همه زیرماتریس‌های اصلی باید مثبت باشند:
+	\[
+	\det(A_k) > 0 \quad \forall k = 1, 2, \ldots, n
+	\]
+	که \( A_k \) زیرماتریس اصلی حاصل از انتخاب اولین \( k \) سطر و ستون ماتریس \( A \) است.
+	
+	\item \textbf{شرط ضرب داخلی:}
+	برای بردارهای تصادفی \( x \neq 0 \)، محاسبه کنید که آیا \( x^T A x > 0 \) است یا خیر.
+	
+	\item \textbf{تجزیه چولسکی:}
+	اگر ماتریس \( A \) قابل تجزیه به \( L L^T \) باشد، آنگاه \( A \) معین مثبت است.
+\end{enumerate}
+
+\subsection{مثال‌ها}
+
+\begin{example}
+	فرض کنید:
+	\[
+	A = \begin{bmatrix}
+		2 & -1 \\
+		-1 & 2
+	\end{bmatrix}
+	\]
+	این ماتریس متقارن است. مقدارهای ویژه آن \( \lambda_1 = 3 \) و \( \lambda_2 = 1 \) هستند که هر دو مثبت‌اند.  
+	بنابراین، \( A \) معین مثبت است.
+\end{example}
+\begin{example}
+	فرض کنید:
+	\[
+	A = \begin{bmatrix}
+		1 & 2 \\
+		2 & 1
+	\end{bmatrix}
+	\]
+	این ماتریس متقارن است.  
+	مقدارهای ویژه آن \( \lambda_1 = 3 \) و \( \lambda_2 = -1 \) هستند.  
+	چون یکی از ویژه‌مقدارها منفی است، ماتریس \( A \) معین مثبت نیست.
+\end{example}
+
+
+\section{مسئله کمترین مربعات ($Least ~~Squares$)}
+
+مسئله کمترین مربعات روشی در ریاضیات و آمار است که برای تقریب یک مدل به داده‌ها استفاده می‌شود. ایده اصلی این روش، \textbf{مینیمم کردن مجموع مربعات خطاها} بین مقادیر واقعی (داده‌ها) و مقادیر پیش‌بینی‌شده توسط مدل است. این روش به طور گسترده در \textbf{رگرسیون خطی} و سایر مسائل تقریب عددی استفاده می‌شود.
+
+\subsection*{تعریف ریاضی}
+
+فرض کنید داده‌هایی به صورت جفت‌های \((x_i, y_i)\) برای \(i = 1, 2, \ldots, n\) داریم. هدف، پیدا کردن یک تابع \(f(x)\) (معمولاً خطی) است که مجموع مربعات اختلاف بین مقادیر داده‌شده \(y_i\) و مقادیر پیش‌بینی‌شده \(f(x_i)\) را کمینه کند. این به صورت زیر فرمول‌بندی می‌شود:
+
+\[
+\text{مجموع خطاها: } S = \sum_{i=1}^n \left( y_i - f(x_i) \right)^2
+\]
+
+در رگرسیون خطی ساده، \(f(x) = ax + b\) است، و هدف یافتن ضرایب \(a\) و \(b\) است.
+\begin{example}
+	
+	\subsubsection*{ رگرسیون خطی ساده}
+	\paragraph{داده‌ها:}
+	\[
+	(x, y) = \{(1, 1), (2, 2.1), (3, 2.9), (4, 4.2)\}
+	\]
+	
+	\paragraph{مدل پیشنهادی:}
+	فرض کنید می‌خواهیم خطی به شکل \(y = ax + b\) پیدا کنیم که بهترین تقریب داده‌ها باشد.
+\end{example}
+\begin{solution}
+	\paragraph{فرمول حل:}
+	مقادیر \(a\) و \(b\) با حل معادلات زیر به دست می‌آیند:
+	
+	\[
+	a = \frac{n \sum x_i y_i - \sum x_i \sum y_i}{n \sum x_i^2 - (\sum x_i)^2}
+	\]
+	
+	\[
+	b = \frac{\sum y_i - a \sum x_i}{n}
+	\]
+	
+	\paragraph{حل عددی:}
+	با استفاده از داده‌ها:
+	
+	\[
+	\sum x_i = 10, \quad \sum y_i = 10.2, \quad \sum x_i^2 = 30, \quad \sum x_i y_i = 30.4
+	\]
+	
+	مقادیر ضرایب عبارتند از:
+	
+	\[
+	a = 1.02, \quad b = -0.05
+	\]
+	
+	\paragraph{مدل نهایی:}
+	\[
+	y = 1.02x - 0.05
+	\]
+	در نمودار زیر، داده‌ها و خط برازش نشان داده شده‌اند.
+	
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={$x$},
+				ylabel={$y$},
+				xmin=0, xmax=5,
+				ymin=0, ymax=5,
+				grid=both,
+				width=12cm,
+				height=8cm,
+				legend pos=north west
+				]
+				% داده‌ها
+				\addplot[only marks, blue, mark size=2pt] coordinates {
+					(1, 1) (2, 2.1) (3, 2.9) (4, 4.2)
+				};
+				\addlegendentry{داده‌ها}
+				
+				% خط برازش
+				\addplot[red, thick, domain=0:5] {1.02 * x - 0.05};
+				\addlegendentry{خط برازش: \(y = 1.02x - 0.05\)}
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+\end{solution}
+\subsection{رسم نمودار}
+\subsubsection{ کمترین مربعات در ماتریس‌ها}
+\begin{example}
+	
+	برای داده‌های چندمتغیره، می‌توان از ماتریس‌ها استفاده کرد. فرض کنید ماتریس داده‌های \(X\) و بردار خروجی \(y\) به صورت زیر باشند:
+	
+	\[
+	X = \begin{bmatrix}
+		1 & 1 \\
+		1 & 2 \\
+		1 & 3 \\
+		1 & 4
+	\end{bmatrix}, \quad
+	y = \begin{bmatrix}
+		1 \\
+		2.1 \\
+		2.9 \\
+		4.2
+	\end{bmatrix}
+	\]
+	
+	هدف یافتن ضرایب \( \beta = \begin{bmatrix} b \\ a \end{bmatrix} \) است که رابطه \(y \approx X \beta\) را برقرار کنند. کمترین مربعات این مسئله با حل معادله زیر به دست می‌آید:
+	
+	\[
+	\beta = (X^T X)^{-1} X^T y
+	\]
+	
+	\paragraph{حل:}
+	
+	\[
+	X^T X = \begin{bmatrix}
+		4 & 10 \\
+		10 & 30
+	\end{bmatrix}, \quad
+	X^T y = \begin{bmatrix}
+		10.2 \\
+		30.4
+	\end{bmatrix}
+	\]
+	
+	محاسبه:
+	
+	\[
+	\beta = \begin{bmatrix}
+		-0.05 \\
+		1.02
+	\end{bmatrix}
+	\]
+	
+	مدل نهایی همان \(y = 1.02x - 0.05\) است.
+\end{example}
+\subsubsection{تقریب یک توابع غیرخطی}
+
+اگر بخواهیم یک تابع غیرخطی مانند \(y = ax^2 + bx + c\) را به داده‌ها برازش دهیم، رویکرد مشابه را اعمال می‌کنیم. با تشکیل سیستم معادلات خطی برای ضرایب \(a, b, c\)، و استفاده از روش ماتریس یا مشتق‌گیری، ضرایب محاسبه می‌شوند.
+
+\section{تمرین‌ها}
+\begin{exercise}
+	یک ماتریس \( A \) داده شده است:
+	\[
+	A = \begin{bmatrix}
+		2 & -1 \\
+		-1 & 2
+	\end{bmatrix}
+	\]
+	\begin{enumerate}
+		\item بررسی کنید که آیا این ماتریس معین مثبت است؟
+		\item مقادیر ویژه $(Eigenvalues)$ این ماتریس را محاسبه کنید.
+		\item بررسی کنید که ماتریس \( A \) چه ویژگی‌هایی برای معین مثبت بودن دارد.
+	\end{enumerate}
+\end{exercise}
+\begin{exercise}
+	ماتریس \( B \) به شکل زیر داده شده است:
+	\[
+	B = \begin{bmatrix}
+		4 & 1 & 2 \\
+		1 & 4 & 1 \\
+		2 & 1 & 4
+	\end{bmatrix}
+	\]
+	\begin{enumerate}
+		\item بررسی کنید که آیا ماتریس \( B \) معین مثبت است یا خیر؟
+		\item مقدارهای ویژه‌ی این ماتریس را محاسبه کنید.
+		\item آیا این ماتریس معین نیمه مثبت است؟ دلیل خود را توضیح دهید.
+	\end{enumerate}
+\end{exercise}
+\begin{exercise}
+	ماتریس \( C \) به شکل زیر داده شده است:
+	\[
+	C = \begin{bmatrix}
+		2 & 3 & 1 \\
+		3 & 6 & 2 \\
+		1 & 2 & 3
+	\end{bmatrix}
+	\]
+	\begin{enumerate}
+		\item بررسی کنید که آیا ماتریس \( C \) معین مثبت است.
+		\item برای هر ماتریس \( A \) که معین مثبت است، باید همه مقادیر ویژه‌ی آن مثبت باشند. بررسی کنید که آیا این ویژگی برای \( C \) صدق می‌کند؟
+		\item نشان دهید که چرا این ماتریس معین نیمه مثبت نیست.
+	\end{enumerate}
+\end{exercise}
+\begin{exercise}
+	داده‌های زیر برای مسئله رگرسیون خطی داده شده است:
+	\[
+	(x, y) = \{(1, 2), (2, 3.2), (3, 4.1), (4, 5.3)\}
+	\]
+	\begin{enumerate}
+		\item یک مدل خطی به شکل \(y = ax + b\) برای برازش داده‌ها پیدا کنید.
+		\item مقادیر \(a\) و \(b\) را محاسبه کنید.
+		\item خط رگرسیون را بر روی نمودار داده‌ها رسم کنید.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	داده‌های زیر به صورت ماتریس داده شده است:
+	\[
+	X = \begin{bmatrix}
+		1 & 1 \\
+		1 & 2 \\
+		1 & 3 \\
+		1 & 4
+	\end{bmatrix}, \quad
+	y = \begin{bmatrix}
+		2 \\
+		3.1 \\
+		4.2 \\
+		5.1
+	\end{bmatrix}
+	\]
+	\begin{enumerate}
+		\item مدل خطی \(y = ax + b\) را با استفاده از روش حداقل مربعات پیدا کنید.
+		\item ضرایب \(a\) و \(b\) را محاسبه کنید.
+		\item معادله خط برازش شده را به دست آورید.
+	\end{enumerate}
+	
+\end{exercise}
+\begin{exercise}
+	در یک مدل رگرسیون چند متغیره، داده‌ها به صورت زیر داده شده است:
+	\[
+	X = \begin{bmatrix}
+		1 & 1 & 1 \\
+		1 & 2 & 2 \\
+		1 & 3 & 3 \\
+		1 & 4 & 4
+	\end{bmatrix}, \quad
+	y = \begin{bmatrix}
+		1 \\
+		2 \\
+		3 \\
+		4
+	\end{bmatrix}
+	\]
+	\begin{enumerate}
+		\item ضرایب \(a_0\)، \(a_1\) و \(a_2\) مدل رگرسیونی \(y = a_0 + a_1 x_1 + a_2 x_2\) را با استفاده از روش حداقل مربعات پیدا کنید.
+		\item مدل رگرسیون را بر اساس ماتریس داده‌ها حل کنید.
+		\item بررسی کنید که آیا مدل به‌دست آمده بهترین برازش را به داده‌ها دارد یا خیر.
+	\end{enumerate}
+\end{exercise}
+\begin{exercise}
+	فرض کنید برای داده‌های زیر که در قالب یک سیستم معادلات خطی \(X\beta = y\) آمده‌اند، می‌خواهید از روش کمترین مربعات برای یافتن ضرایب \(\beta = [b, a]^T\) استفاده کنید:
+	\[
+	X = \begin{bmatrix}
+		1 & 1 \\
+		1 & 2 \\
+		1 & 3 \\
+		1 & 4
+	\end{bmatrix}, \quad
+	y = \begin{bmatrix}
+		2 \\
+		3.1 \\
+		4.1 \\
+		5.2
+	\end{bmatrix}
+	\]
+	\begin{enumerate}
+		\item از روش کمترین مربعات برای حل معادله \(X^T X \beta = X^T y\) استفاده کنید.
+		\item ضرایب \(a\) و \(b\) را محاسبه کرده و مدل رگرسیونی \(y = ax + b\) را بنویسید.
+		\item خط رگرسیونی را بر روی داده‌ها رسم کنید.
+	\end{enumerate}
+	
+\end{exercise}
+\begin{exercise}
+	برای داده‌های غیرخطی زیر، از روش حداقل مربعات استفاده کنید تا تابع \(f(x) = ax^2 + bx + c\) را پیدا کنید:
+	\[
+	(x, y) = \{(1, 3), (2, 5), (3, 7), (4, 10)\}
+	\]
+	\begin{enumerate}
+		\item معادلات مربوط به حداقل مربعات برای پیدا کردن ضرایب \(a\)، \(b\) و \(c\) را بنویسید.
+		\item ضرایب این مدل را با حل معادلات به دست آورید.
+		\item تابع \(f(x)\) را بنویسید و آن را برای داده‌های مختلف پیش‌بینی کنید.
+	\end{enumerate}
+\end{exercise}
+\section{تعامد در بردارها}
+تعامد $(Orthogonality)$ در بردارها به این معنا است که دو بردار \( \mathbf{u} \) و \( \mathbf{v} \) در یک فضای برداری زمانی متعامد هستند که ضرب داخلی (اسکالر) آن‌ها صفر باشد. به عبارت دیگر:
+\[
+\mathbf{u} \cdot \mathbf{v} = 0
+\]
+اگر این شرط برقرار باشد، زاویه بین دو بردار \(90\) درجه یا \( \frac{\pi}{2} \) رادیان است.
+
+\begin{example}
+	بردارهای زیر را در نظر بگیرید:
+	\[
+	\mathbf{u} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad \mathbf{v} = \begin{bmatrix} 2 \\ -1 \end{bmatrix}
+	\]
+	محاسبه ضرب داخلی:
+	\[
+	\mathbf{u} \cdot \mathbf{v} = 1 \cdot 2 + 2 \cdot (-1) = 2 - 2 = 0
+	\]
+	بنابراین، بردارهای \( \mathbf{u} \) و \( \mathbf{v} \) متعامد هستند.
+\end{example}
+\begin{example}
+	بردارهای زیر را در نظر بگیرید:
+	\[
+	\mathbf{u} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad \mathbf{v} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+	\]
+	محاسبه ضرب داخلی:
+	\[
+	\mathbf{u} \cdot \mathbf{v} = 1 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 = 0
+	\]
+	این بردارها نیز متعامد هستند.
+\end{example}
+\begin{example}
+	بردارهای زیر را در نظر بگیرید:
+	\[
+	\mathbf{u} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad \mathbf{v} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}
+	\]
+	محاسبه ضرب داخلی:
+	\[
+	\mathbf{u} \cdot \mathbf{v} = 1 \cdot 3 + 2 \cdot 4 = 3 + 8 = 11
+	\]
+	چون ضرب داخلی صفر نیست، این بردارها متعامد نیستند.
+\end{example}
+\section{بردارهای یکا متعامد}
+\begin{definition}
+	
+	بردارهای
+	\textbf{یکا متعامد}
+	$(~Orthonormal ~Vectors~)$  
+	مجموعه‌ای از بردارها در یک فضای برداری هستند که دو ویژگی اصلی دارند:
+	\begin{enumerate}
+		\item \textbf{یکا بودن:} طول هر بردار برابر با \(1\) است:
+		\[
+		\|\mathbf{v}_i\| = 1
+		\]
+		\item \textbf{تعامد:} ضرب داخلی هر دو بردار مختلف صفر است:
+		\[
+		\mathbf{v}_i \cdot \mathbf{v}_j = 0 \quad \text{برای } i \neq j
+		\]
+	\end{enumerate}
+\end{definition}
+\begin{example}
+	\subsection*{ بردارهای یکا متعامد در \(\mathbb{R}^2\)}
+	در فضای دو بعدی، بردارهای زیر یکا متعامد هستند:
+	\[
+	\mathbf{v}_1 = \begin{bmatrix}
+		1 \\
+		0
+	\end{bmatrix}, \quad
+	\mathbf{v}_2 = \begin{bmatrix}
+		0 \\
+		1
+	\end{bmatrix}
+	\]
+	این بردارها:
+	\begin{itemize}
+		\item طولشان برابر با \(1\) است.
+		\item ضرب داخلی آن‌ها صفر است: \( \mathbf{v}_1 \cdot \mathbf{v}_2 = 0 \).
+	\end{itemize}
+\end{example}
+\begin{example}
+	\subsection*{مثال ۲: بردارهای یکا متعامد در \(\mathbb{R}^3\)}
+	در فضای سه‌بعدی، بردارهای زیر یکا متعامد هستند:
+	\[
+	\mathbf{v}_1 = \begin{bmatrix}
+		1 \\
+		0 \\
+		0
+	\end{bmatrix}, \quad
+	\mathbf{v}_2 = \begin{bmatrix}
+		0 \\
+		1 \\
+		0
+	\end{bmatrix}, \quad
+	\mathbf{v}_3 = \begin{bmatrix}
+		0 \\
+		0 \\
+		1
+	\end{bmatrix}
+	\]
+	این بردارها:
+	\begin{itemize}
+		\item طول \(1\) دارند: \( \|\mathbf{v}_i\| = 1 \).
+		\item ضرب داخلی هر دو بردار مختلف صفر است.
+	\end{itemize}
+\end{example}
+\begin{example}
+	\subsection*{مثال ۳: بردارهای دوران در \(\mathbb{R}^2\)}
+	در فضای دو‌بعدی، مجموعه زیر یکا متعامد هستند:
+	\[
+	\mathbf{v}_1 = \begin{bmatrix}
+		\frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}}
+	\end{bmatrix}, \quad
+	\mathbf{v}_2 = \begin{bmatrix}
+		\frac{-1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}}
+	\end{bmatrix}
+	\]
+	این بردارها ضرب داخلی صفر دارند و طول آن‌ها \(1\) است.
+\end{example}
+\section{ماتریس متعامد}
+\begin{definition}
+	
+	
+	ماتریس متعامد 
+	$(~Orthogonal ~Matrix~)$ 
+	ماتریسی مربعی است که ستون‌ها (و یا سطرهای آن) متعامد و نُرمال (واحدی) باشند. به عبارت دیگر، ماتریس مربعی \(A\) زمانی متعامد است که ضرب آن با ترانهاده‌اش برابر با ماتریس همانی (\(I\)) شود:
+	\[
+	A^T A = A A^T = I
+	\]
+\end{definition}
+در ماتریس متعامد:
+\begin{itemize}
+	\item ضرب داخلی هر دو ستون یا سطر مختلف برابر صفر است (تعامد).
+	\item نُرم هر ستون یا سطر برابر با \(1\) است (واحدی بودن).
+\end{itemize}
+
+\subsection{خواص ماتریس متعامد}
+\begin{enumerate}
+	\item \textbf{حفظ نُرم بردارها:} اگر بردار \( \mathbf{v} \) را در \(A\) ضرب کنیم، نُرم آن تغییر نمی‌کند.
+	\item \textbf{معکوس ماتریس متعامد:} معکوس ماتریس متعامد برابر با ترانهاده آن است: \( A^{-1} = A^T \).
+	\item \textbf{دترمینان:} دترمینان ماتریس متعامد همیشه برابر با \( \pm 1 \) است.
+\end{enumerate}
+
+\begin{example}
+	ماتریس زیر متعامد است:
+	\[
+	A = \begin{bmatrix}
+		\frac{1}{\sqrt{2}} & \frac{-1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+	\end{bmatrix}
+	\]
+	محاسبه:
+	\[
+	A^T = \begin{bmatrix}
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+		\frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+	\end{bmatrix}, \quad
+	A^T A = \begin{bmatrix}
+		1 & 0 \\
+		0 & 1
+	\end{bmatrix} = I
+	\]
+\end{example}
+\begin{example}
+	ماتریس دوران زاویه \( \theta \) نیز متعامد است:
+	\[
+	A = \begin{bmatrix}
+		\cos\theta & -\sin\theta \\
+		\sin\theta & \cos\theta
+	\end{bmatrix}
+	\]
+	
+	برای \( \theta = 90^\circ \):
+	\[
+	A = \begin{bmatrix}
+		0 & -1 \\
+		1 & 0
+	\end{bmatrix}
+	\]
+	این ماتریس نیز متعامد است.
+\end{example}
+\begin{example}
+	ماتریس زیر متعامد است:
+	\[
+	A = \begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 0 & -1 \\
+		0 & 1 & 0
+	\end{bmatrix}
+	\]
+	می‌توان به سادگی بررسی کرد که \( A^T A = I \).
+\end{example}
+\section{ماتریس هوسهلدر}
+
+
+
+ماتریس \textbf{هوسهلدر} 
+${~\rm Householder ~Matrix~}$
+نوعی ماتریس متقارن و متعامد است که برای بازتاب یک بردار حول یک زیرفضا استفاده می‌شود.
+
+\begin{definition}
+	فرض کنید \( \mathbf{u} \) یک بردار در فضای \( \mathbb{R}^n \) باشد. ماتریس هوسهلدر \( H \) به صورت زیر تعریف می‌شود:
+	\[
+	H = I - 2\frac{\mathbf{u}\mathbf{u}^T}{\|\mathbf{u}\|^2}=I - 2\frac{\mathbf{u}\mathbf{u}^T}{\mathbf{u}^T\mathbf{u}}
+	\]
+	که در آن:
+	\begin{itemize}
+		\item \( I \): ماتریس همانی
+		\item \( \mathbf{u}^T \): ضرب خارجی بردار \( \mathbf{u} \) با خودش
+		\item \( \|\mathbf{u}\|^2 \): مربع نُرم بردار \( \mathbf{u} \)
+	\end{itemize}
+	بردار 
+	$\mathbf{u}$
+	را نیز بردار هوسهلدر می‌گویند.
+\end{definition}
+\subsection*{خواص}
+\begin{enumerate}
+	\item 
+	$H$
+	متعامد و متقارن است.
+	\item 
+	\(
+	H^T H = I
+	\)
+	\item
+	\(
+	H \mathbf{u}= -\mathbf{u}
+	\)
+	\item 
+	اگر 
+	$\mathbf{u}^T\mathbf{v}=0$
+	آنگاه 
+	$H \mathbf{v}= \mathbf{v}$
+	\item 
+	اگر 
+	$x, y\in \mathbb{R}^n$
+	و 
+	$x\neq y, ~~\|x\|_2=\|y\|_2$
+	و 
+	$u$
+	موازی با 
+	$x-y$
+	باشد آنگاه
+	$Hx=y$
+	\item 
+	اگر
+	$e_1=[1, 0, 0, \cdots, 0]^T$،
+	$x\neq e_1$،
+	$u=x\pm\|x\|_2 e_1$
+	و
+	$H$
+	ماتریس هوسهلدر تعریف شده با استفاده از 
+	$u$
+	باشد آنگاه
+	$Hx=\mp\|x\|_2 e_1$.
+\end{enumerate}
+\begin{exercise}
+	فرض کنید 
+	$x=[3, 0, -4]^T$
+	خاصیت (6) را مورد بررسی قرار دهید.
+\end{exercise}
+برنامه زیر ماتریس هوسهلدر متناظر با بردار ورودی 
+
+را محاسبه می‌کند:
+\begin{code}
+\begin{latin}
+\begin{lstlisting}
+import numpy as np  
+def householder_matrix(u):  
+	u = u / np.linalg.norm(u)
+	H = np.eye(len(u)) - 2 * np.outer(u, u)  
+	return H  
+\end{lstlisting}
+\end{latin}
+\end{code}
+این برنامه را برای یک بردار خاص با استفاده از برنامه زیر اجرا می‌کنیم.
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			u = np.array([1, 2, 3])  
+			H = householder_matrix(u)  
+			print("Householder Matrix H:")  
+			print(H)
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+نتیجه به صورت زیر است:
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			Householder Matrix H:
+			[[ 0.85714286 -0.28571429 -0.42857143]
+			[-0.28571429  0.42857143 -0.85714286]
+			[-0.42857143 -0.85714286 -0.28571429]]
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+\begin{exercise}
+	ماتریس هوسهلدر متناظر با بردار
+	$u=[1, 1, 1]^T$
+	را بدست آورید. (هم با استفاده از تعریف و هم با استفاده از برنامه پایتون)
+\end{exercise}
+\begin{nokteh}
+	در حالت عادی و برای ماتریس
+	$H\in \mathbb{R}^{n\times n}$
+	و بردار
+	$x\in \mathbb{R}^n$
+	هزینه محاسباتی
+	$Hx$
+	برابر 
+	$2n^2$
+	است و اگر
+	$A\in \mathbb{R}^{n\times m}$
+	هزینه محاسباتی 
+	$HA$
+	برابر 
+	$2mn^2$
+	است.
+	حال اگر ماتریس 
+	$H\in \mathbb{R}^{n\times n}$
+	یک ماتریس هوسهلدر باشد با توجه به روابط زیر
+	\begin{align*}
+		Hx &=(I-\beta u u^T)x=x-\beta u (u^T x) = x - \beta \gamma u, \beta = \frac{2}{u^Tu}, ~ \gamma = u^Tx\\
+		HA &=(I-\beta u u^T)A=A-\beta u (u^T u)A = A - \beta \gamma u, \beta = \frac{2}{u^Tu}, ~ \gamma = A^Tx\\
+		AH &=A(I-\beta u u^T)=A-\beta u (u^T u) = A - \beta \gamma u, \beta = \frac{2}{u^Tu}, ~ \gamma = A^Tx
+	\end{align*}
+	
+	
+	می‌توان نشان داد که هزینه محاسباتی
+	$Hx$
+	برابر 
+	$6n$
+	و هزینه محاسباتی 
+	$HA$
+	برابر 
+	$4mn$
+	است.
+\end{nokteh}
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			def HouseVec(x):
+			n = len(x); u = np.zeros(n)
+			u[1:] = x[1:]
+			s = np.sign(x[1])
+			if s == 0: s = 1
+			u[0] = x[0] + s*np.linalg.norm(x,2)
+			return u
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			def HouseProd(u,A):
+			# HouseProd(u,A) computes the product of Householder matrix
+			# (I-2uu’/u’u) by matrix A
+			b = 2/np.dot(u,u); w = np.matmul(np.transpose(A),u)
+			HA = A - b*np.outer(u,w)
+			return HA
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+
+\subsection{تصویر متعامد یک بردار}
+تصویر متعامد یک بردار \( \mathbf{v} \) روی یک بردار غیرصفر \( \mathbf{u} \)، کوتاه‌ترین برداری است که در راستای \( \mathbf{u} \) قرار دارد و می‌توان آن را به صورت زیر تعریف کرد:
+\[
+\text{proj}_{\mathbf{u}}(\mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{u} \cdot \mathbf{u}} \mathbf{u}.
+\]
+
+اختلاف بین \( \mathbf{v} \) و تصویر متعامد آن روی \( \mathbf{u} \) به \( \mathbf{u} \) عمود است:
+\[
+\mathbf{v} - \text{proj}_{\mathbf{u}}(\mathbf{v}) \perp \mathbf{u}.
+\]
+
+\subsection{فرایند گرام-اشمیت}
+فرایند گرام-اشمیت روشی برای تبدیل یک مجموعه از بردارهای خطی مستقل به یک مجموعه از بردارهای متعامد یا یکا-متعامد است. 
+
+\subsubsection{مراحل فرایند}
+فرض کنید بردارهای خطی مستقل \( \{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n\} \) داریم. مراحل زیر را انجام می‌دهیم:
+
+\begin{enumerate}
+	\item \textbf{بردار اول:} 
+	\[
+	\mathbf{u}_1 = \mathbf{v}_1.
+	\]
+	
+	\item \textbf{بردار دوم:} 
+	تصویر متعامد \( \mathbf{v}_2 \) روی \( \mathbf{u}_1 \) را محاسبه کرده و از \( \mathbf{v}_2 \) کم می‌کنیم:
+	\[
+	\mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1}(\mathbf{v}_2),
+	\]
+	که در آن:
+	\[
+	\text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \frac{\mathbf{u}_1 \cdot \mathbf{v}_2}{\mathbf{u}_1 \cdot \mathbf{u}_1} \mathbf{u}_1.
+	\]
+	
+	\item \textbf{بردارهای بعدی:} 
+	برای \( k \)-امین بردار:
+	\[
+	\mathbf{u}_k = \mathbf{v}_k - \sum_{j=1}^{k-1} \text{proj}_{\mathbf{u}_j}(\mathbf{v}_k).
+	\]
+	
+	\item \textbf{نرمال‌سازی (اختیاری):} 
+	هر بردار \( \mathbf{u}_k \) را نرمال می‌کنیم تا بردارهای یکا-متعامد \( \mathbf{e}_k \) به دست آید:
+	\[
+	\mathbf{e}_k = \frac{\mathbf{u}_k}{\|\mathbf{u}_k\|}.
+	\]
+\end{enumerate}
+
+\begin{example}
+	فرض کنید بردارهای زیر داده شده‌اند:
+	\[
+	\mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}, \quad \mathbf{v}_2 = \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix}.
+	\]
+	
+	\begin{enumerate}
+		\item \textbf{بردار اول:}
+		\[
+		\mathbf{u}_1 = \mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}.
+		\]
+		
+		\item \textbf{بردار دوم:}
+		ابتدا تصویر متعامد \( \mathbf{v}_2 \) روی \( \mathbf{u}_1 \) را محاسبه می‌کنیم:
+		\[
+		\text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \frac{\mathbf{u}_1 \cdot \mathbf{v}_2}{\mathbf{u}_1 \cdot \mathbf{u}_1} \mathbf{u}_1,
+		\]
+		که در آن:
+		\[
+		\mathbf{u}_1 \cdot \mathbf{v}_2 = 1 \cdot 1 + 2 \cdot 0 + 2 \cdot 3 = 7, \quad \mathbf{u}_1 \cdot \mathbf{u}_1 = 1^2 + 2^2 + 2^2 = 9.
+		\]
+		بنابراین:
+		\[
+		\text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \frac{7}{9} \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix} = \begin{bmatrix} 7/9 \\ 14/9 \\ 14/9 \end{bmatrix}.
+		\]
+		
+		سپس:
+		\[
+		\mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix} - \begin{bmatrix} 7/9 \\ 14/9 \\ 14/9 \end{bmatrix} = \begin{bmatrix} 2/9 \\ -14/9 \\ 13/9 \end{bmatrix}.
+		\]
+		
+		\item \textbf{نرمال‌سازی (اختیاری):}
+		بردارهای \( \mathbf{u}_1 \) و \( \mathbf{u}_2 \) را نرمال می‌کنیم.
+	\end{enumerate}
+\end{example}
+\begin{example}
+	\section*{مثال: متعامدسازی گرام-اشمیت برای چهار بردار}
+	فرض کنید مجموعه‌ای از بردارها به صورت زیر داده شده است:
+	\[
+	\mathbf{v}_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix}, \quad
+	\mathbf{v}_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \\ 0 \end{bmatrix}, \quad
+	\mathbf{v}_3 = \begin{bmatrix} 0 \\ 1 \\ 1 \\ 1 \end{bmatrix}, \quad
+	\mathbf{v}_4 = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}.
+	\]
+	
+	می‌خواهیم مجموعه‌ای از بردارهای متعامد \( \mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3, \mathbf{u}_4 \) را با استفاده از فرایند گرام-اشمیت به دست آوریم.
+	
+	\subsection*{مرحله اول: بردار اول}
+	\[
+	\mathbf{u}_1 = \mathbf{v}_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix}.
+	\]
+	
+	\subsection*{مرحله دوم: بردار دوم}
+	ابتدا تصویر \( \mathbf{v}_2 \) روی \( \mathbf{u}_1 \) را محاسبه می‌کنیم:
+	\[
+	\text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \frac{\mathbf{u}_1 \cdot \mathbf{v}_2}{\mathbf{u}_1 \cdot \mathbf{u}_1} \mathbf{u}_1,
+	\]
+	که در آن:
+	\[
+	\mathbf{u}_1 \cdot \mathbf{v}_2 = 1 \cdot 1 + 1 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 = 1, \quad
+	\mathbf{u}_1 \cdot \mathbf{u}_1 = 1^2 + 1^2 + 0^2 + 0^2 = 2.
+	\]
+	بنابراین:
+	\[
+	\text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \frac{1}{2} \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0.5 \\ 0.5 \\ 0 \\ 0 \end{bmatrix}.
+	\]
+	
+	اکنون:
+	\[
+	\mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1}(\mathbf{v}_2) = \begin{bmatrix} 1 \\ 0 \\ 1 \\ 0 \end{bmatrix} - \begin{bmatrix} 0.5 \\ 0.5 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0.5 \\ -0.5 \\ 1 \\ 0 \end{bmatrix}.
+	\]
+\end{example}
+\begin{example}
+	\subsection*{مرحله سوم: بردار سوم}
+	برای بردار سوم، ابتدا تصویر \( \mathbf{v}_3 \) روی \( \mathbf{u}_1 \) و \( \mathbf{u}_2 \) را محاسبه می‌کنیم:
+	\[
+	\text{proj}_{\mathbf{u}_1}(\mathbf{v}_3) = \frac{\mathbf{u}_1 \cdot \mathbf{v}_3}{\mathbf{u}_1 \cdot \mathbf{u}_1} \mathbf{u}_1, \quad
+	\text{proj}_{\mathbf{u}_2}(\mathbf{v}_3) = \frac{\mathbf{u}_2 \cdot \mathbf{v}_3}{\mathbf{u}_2 \cdot \mathbf{u}_2} \mathbf{u}_2.
+	\]
+	
+	محاسبه مقادیر عددی:
+	\[
+	\mathbf{u}_1 \cdot \mathbf{v}_3 = 1 \cdot 0 + 1 \cdot 1 + 0 \cdot 1 + 0 \cdot 1 = 1, \quad
+	\mathbf{u}_2 \cdot \mathbf{v}_3 = 0.5 \cdot 0 - 0.5 \cdot 1 + 1 \cdot 1 + 0 \cdot 1 = 0.5.
+	\]
+	بنابراین:
+	\[
+	\text{proj}_{\mathbf{u}_1}(\mathbf{v}_3) = \begin{bmatrix} 0.5 \\ 0.5 \\ 0 \\ 0 \end{bmatrix}, \quad
+	\text{proj}_{\mathbf{u}_2}(\mathbf{v}_3) = \begin{bmatrix} 0.125 \\ -0.125 \\ 0.25 \\ 0 \end{bmatrix}.
+	\]
+	
+	اکنون:
+	\[
+	\mathbf{u}_3 = \mathbf{v}_3 - \text{proj}_{\mathbf{u}_1}(\mathbf{v}_3) - \text{proj}_{\mathbf{u}_2}(\mathbf{v}_3) = \begin{bmatrix} -0.625 \\ 0.625 \\ 0.75 \\ 1 \end{bmatrix}.
+	\]
+\end{example}
+\begin{example}
+	
+	\subsection*{مرحله چهارم: بردار چهارم}
+	برای بردار چهارم، تصویر \( \mathbf{v}_4 \) روی \( \mathbf{u}_1 \)، \( \mathbf{u}_2 \) و \( \mathbf{u}_3 \) را محاسبه کرده و مانند مراحل قبل عمل می‌کنیم.
+	
+	\section*{نتیجه نهایی}
+	پس از اعمال فرایند گرام-اشمیت، بردارهای متعامد \( \mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3, \mathbf{u}_4 \) به دست می‌آیند که می‌توانند نرمال شوند تا مجموعه‌ای از بردارهای یکا-متعامد تشکیل دهند.
+	
+\end{example}
+\subsection{کاربردها}
+\begin{itemize}
+	\item تجزیه QR ماتریس‌ها.
+	\item حل سیستم‌های خطی.
+	\item تحلیل داده‌ها و کاهش ابعاد (مانند روش تحلیل مؤلفه‌های اصلی).
+\end{itemize}
+
+\section{تجزیه QR}
+\begin{definition}
+	
+	
+	تجزیه \textbf{QR} یکی از روش‌های مهم در جبر خطی است که ماتریس \( A \) را به دو ماتریس \( Q \) و \( R \) تجزیه می‌کند:
+	\[
+	A = QR
+	\]
+	که در آن:
+	\begin{itemize}
+		\item \( Q \): ماتریسی متعامد (ستون‌های آن متعامد و نُرمال هستند).
+		\item \( R \): ماتریسی بالا‌مثلثی.
+	\end{itemize}
+\end{definition}
+\section*{شرایط لازم برای تجزیه QR}
+
+برای اینکه بتوان تجزیه QR را روی یک ماتریس \( A \) انجام داد، باید شرایط زیر برقرار باشد:
+
+\subsection*{۱. ماتریس باید دارای رتبه کامل ستون‌ها باشد}
+ماتریس \( A \) باید \textbf{ستون‌هایی مستقل خطی} داشته باشد. به این معنا که هیچ ستونی از \( A \) نمی‌تواند به صورت ترکیب خطی از سایر ستون‌ها بیان شود. اگر \( A \) دارای \( n \) ستون باشد، رتبه \( A \) باید برابر با \( n \) باشد.
+
+\subsection*{۲. ابعاد ماتریس \( A \)}
+ماتریس \( A \) می‌تواند \textbf{مستطیلی} یا \textbf{مربعی} باشد:
+\begin{itemize}
+	\item اگر \( A \) یک ماتریس \( m \times n \) باشد (با \( m \geq n \))، می‌توان تجزیه QR را انجام داد.
+	\item اگر \( m < n \)، تجزیه QR امکان‌پذیر نیست.
+\end{itemize}
+
+\subsection*{۳. شرط  تعامد در ماتریس \( Q \)}
+ماتریس \( Q \) باید یک ماتریس \textbf{ متعامد} باشد. به این معنا که:
+\[
+Q^T Q = I
+\]
+که \( I \) ماتریس همانی است. این شرط به صورت خودکار با روش‌هایی مانند گرَم-اشمیت یا انعکاس هوسهلدر تأمین می‌شود.
+
+\subsection*{۴. عدم وجود ستون صفر}
+ماتریس \( A \) نباید دارای ستون‌هایی با مقادیر صفر باشد، زیرا ستون صفر نمی‌تواند یک بردار نرمال تعریف کند.
+
+\subsection*{شرایط خاص برای انواع ماتریس‌ها}
+\begin{itemize}
+	\item اگر \( A \) مربعی باشد:
+	\begin{itemize}
+		\item ماتریس \( Q \) مربعی و متعامد است.
+		\item ماتریس \( R \) یک ماتریس بالا‌مثلثی مربعی است.
+	\end{itemize}
+	\item اگر \( A \) مستطیلی باشد:
+	\begin{itemize}
+		\item \( Q \) یک ماتریس \( m \times m \) است.
+		\item \( R \) یک ماتریس \( m \times n \) است که قسمت پایین \( R \) از صفرها تشکیل شده است.
+	\end{itemize}
+\end{itemize}
+
+\subsection*{خلاصه}
+به طور کلی، برای انجام تجزیه QR:
+\begin{enumerate}
+	\item ماتریس \( A \) باید ستون‌های مستقل خطی داشته باشد.
+	\item تعداد سطرها باید بیشتر یا مساوی تعداد ستون‌ها باشد (\( m \geq n \)).
+\end{enumerate}
+\begin{example}
+	فرض کنید:
+	\[
+	A = \begin{bmatrix}
+		1 & 1 \\
+		1 & 0 \\
+		1 & -1
+	\end{bmatrix}
+	\]
+\end{example}
+\subsubsection*{محاسبه بردار \( \mathbf{q}_1 \):}
+ستون اول \( A \) برابر است با:
+\[
+\mathbf{a}_1 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad
+\|\mathbf{a}_1\| = \sqrt{3}, \quad
+\mathbf{q}_1 = \frac{\mathbf{a}_1}{\|\mathbf{a}_1\|} = \frac{1}{\sqrt{3}} \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+\]
+
+\subsubsection*{محاسبه بردار \( \mathbf{q}_2 \):}
+ستون دوم \( A \) برابر است با:
+\[
+\mathbf{a}_2 = \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}
+\]
+
+حذف مؤلفه موازی با \( \mathbf{q}_1 \):
+\[
+\mathbf{u}_2 = \mathbf{a}_2 - (\mathbf{q}_1^T \mathbf{a}_2) \mathbf{q}_1
+\]
+محاسبه:
+\[
+\mathbf{q}_1^T \mathbf{a}_2 = \frac{1}{\sqrt{3}} (1 \cdot 1 + 1 \cdot 0 + 1 \cdot -1) = 0, \quad \mathbf{u}_2 = \mathbf{a}_2
+\]
+
+نُرم \( \mathbf{u}_2 \) و نرمال‌سازی:
+\[
+\|\mathbf{u}_2\| = \sqrt{2}, \quad \mathbf{q}_2 = \frac{\mathbf{u}_2}{\|\mathbf{u}_2\|} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}
+\]
+
+\subsubsection*{ماتریس‌های \( Q \) و \( R \):}
+\[
+Q = \begin{bmatrix}
+	\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} \\
+	\frac{1}{\sqrt{3}} & 0 \\
+	\frac{1}{\sqrt{3}} & -\frac{1}{\sqrt{2}}
+\end{bmatrix}, \quad
+R = Q^T A = \begin{bmatrix}
+	\sqrt{3} & \frac{1}{\sqrt{3}} \\
+	0 & \sqrt{2}
+\end{bmatrix}
+\]
+\begin{example}
+	
+	فرض کنید ماتریس \( A \) به صورت زیر باشد:
+	\[
+	A = \begin{bmatrix}
+		1 & 1 & 1 \\
+		1 & 2 & 3 \\
+		1 & 3 & 6
+	\end{bmatrix}
+	\]
+	تجزیه QR ماتریس A  را بدست آورید.
+\end{example}
+\begin{solution}
+	\subsection*{مرحله اول: محاسبه \( q_1 \)}
+	ستون اول ماتریس \( A \) را نرمال می‌کنیم تا بردار \( q_1 \) به دست آید:
+	\[
+	q_1 = \frac{\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}}{\|\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\|} = \frac{\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}}{\sqrt{1^2 + 1^2 + 1^2}} = \frac{\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}}{\sqrt{3}} = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}
+	\]
+	
+	\subsection*{مرحله دوم: محاسبه \( q_2 \)}
+	ستون دوم ماتریس \( A \) را به صورت عمود بر \( q_1 \) تنظیم می‌کنیم:
+	\[
+	q_2' = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} - \text{Proj}_{q_1}\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
+	\]
+	که در آن:
+	\[
+	\text{Proj}_{q_1}\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} = \left(\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \cdot q_1 \right) q_1
+	\]
+	
+	محاسبات انجام می‌شود تا بردار \( q_2 \) نرمال به دست آید:
+	\[
+	q_2 = \frac{q_2'}{\|q_2'\|}
+	\]
+	
+	\subsection*{مرحله سوم: محاسبه \( q_3 \)}
+	ستون سوم را به صورت عمود بر \( q_1 \) و \( q_2 \) تنظیم می‌کنیم:
+	\[
+	q_3' = \begin{bmatrix} 1 \\ 3 \\ 6 \end{bmatrix} - \text{Proj}_{q_1}\begin{bmatrix} 1 \\ 3 \\ 6 \end{bmatrix} - \text{Proj}_{q_2}\begin{bmatrix} 1 \\ 3 \\ 6 \end{bmatrix}
+	\]
+	
+	سپس با نرمال کردن \( q_3' \):
+	\[
+	q_3 = \frac{q_3'}{\|q_3'\|}
+	\]
+	
+	\subsection*{ماتریس‌های نهایی \( Q \) و \( R \)}
+	\[
+	Q = \begin{bmatrix}
+		q_1 & q_2 & q_3
+	\end{bmatrix}, \quad
+	R = Q^T A
+	\]
+\end{solution}
+
+\section*{تمرینات مربوط به تجزیه QR}
+
+\begin{enumerate}
+	\item \textbf{تمرین ۱: تجزیه QR برای یک ماتریس \( 2 \times 2 \)}
+	\begin{itemize}
+		\item ماتریس زیر داده شده است:
+		\[
+		A = \begin{bmatrix}
+			1 & 2 \\
+			3 & 4
+		\end{bmatrix}
+		\]
+		ماتریس‌های \( Q \) و \( R \) را به دست آورید، به طوری که \( A = QR \).
+		
+		\item مراحل کار:
+		\begin{enumerate}
+			\item ابتدا ستون اول ماتریس را نرمال کنید تا بردار \( q_1 \) را بیابید.
+			\item ستون دوم را به صورت عمود بر \( q_1 \) تنظیم کنید و سپس نرمال کنید.
+			\item ماتریس‌های \( Q \) و \( R \) را مطابق تعریف بنویسید.
+		\end{enumerate}
+	\end{itemize}
+	
+	\item \textbf{تمرین ۲: تجزیه QR برای یک ماتریس \( 3 \times 3 \)}
+	\begin{itemize}
+		\item ماتریس زیر داده شده است:
+		\[
+		A = \begin{bmatrix}
+			1 & 1 & 1 \\
+			1 & 2 & 3 \\
+			1 & 3 & 6
+		\end{bmatrix}
+		\]
+		تجزیه QR را با استفاده از روش گرَم-اشمیت پیدا کنید. ماتریس‌های \( Q \) و \( R \) را به دست آورید.
+		
+		\item راهنما:
+		\begin{enumerate}
+			\item ستون‌های \( A \) را به ترتیب \( q_1 \)، \( q_2 \)، و \( q_3 \) استخراج و نرمال کنید.
+			\item روابط بین ستون‌ها و ضرایب \( r_{ij} \) را بیابید.
+			\item \( Q \) و \( R \) را تشکیل دهید.
+		\end{enumerate}
+	\end{itemize}
+	
+	\item \textbf{تمرین ۳: بررسی تجزیه QR برای ماتریس مربعی}
+	\begin{itemize}
+		\item ماتریس زیر داده شده است:
+		\[
+		A = \begin{bmatrix}
+			2 & 0 & 1 \\
+			1 & 2 & 1 \\
+			1 & 1 & 2
+		\end{bmatrix}
+		\]
+		\item خواسته‌ها:
+		\begin{enumerate}
+			\item ماتریس \( Q \) را به دست آورید که ستون‌های آن یکامتعامد باشند.
+			\item ماتریس \( R \) را محاسبه کنید و بررسی کنید آیا \( Q^T Q = I \) برقرار است.
+		\end{enumerate}
+	\end{itemize}
+\end{enumerate}
+
+\section{حل مسئله حداقل مربعات}
+مسئله حداقل مربعات یکی از مسائل اساسی در ریاضیات و مهندسی است که هدف آن کمینه‌سازی مجموع مربعات خطاها بین داده‌ها و مدل پیش‌بینی شده است.
+
+\subsection{تعریف ریاضی}
+فرض کنید ماتریس \(A\) و بردار \(b\) داده شده‌اند. هدف، یافتن بردار \(x\) است که:
+\[
+\|Ax - b\|_2^2
+\]
+را مینیمم کند.
+
+\subsection{معادله نرمال}
+معادله حداقل مربعات به شکل زیر بازنویسی می‌شود:
+\[
+A^T A x = A^T b.
+\]
+\begin{example}
+	فرض کنید:
+	\[
+	A = \begin{bmatrix}
+		1 & 1 \\
+		1 & 2 \\
+		1 & 3
+	\end{bmatrix}, \quad
+	b = \begin{bmatrix}
+		1 \\
+		2 \\
+		2
+	\end{bmatrix}.
+	\]
+\end{example}
+\begin{solution}
+	
+	ابتدا:
+	\[
+	A^T A = \begin{bmatrix}
+		3 & 6 \\
+		6 & 14
+	\end{bmatrix}, \quad
+	A^T b = \begin{bmatrix}
+		5 \\
+		10
+	\end{bmatrix}.
+	\]
+	
+	حل معادله:
+	\[
+	x = \begin{bmatrix}
+		0 \\
+		1
+	\end{bmatrix}.
+	\]
+\end{solution}
+\subsection{حل مسئله حداقل مربعات با تجزیه QR}
+اگر \(A = QR\) باشد:
+\[
+Rx = Q^T b.
+\]
+\begin{example}
+	فرض کنید ماتریس و بردار به صورت زیر داده شده‌اند:
+	\[
+	A = \begin{bmatrix}
+		1 & 1 \\
+		1 & 2 \\
+		1 & 3
+	\end{bmatrix}, \quad
+	b = \begin{bmatrix}
+		1 \\
+		2 \\
+		2
+	\end{bmatrix}.
+	\]
+\end{example}
+\begin{solution}
+	ابتدا ماتریس \(A\) را به صورت \(A = QR\) تجزیه می‌کنیم:
+	\[
+	Q = \begin{bmatrix}
+		\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} \\
+		\frac{1}{\sqrt{3}} & 0 \\
+		\frac{1}{\sqrt{3}} & -\frac{1}{\sqrt{2}}
+	\end{bmatrix}, \quad
+	R = \begin{bmatrix}
+		\sqrt{3} & \frac{7}{\sqrt{3}} \\
+		0 & \sqrt{\frac{2}{3}}
+	\end{bmatrix}.
+	\]
+	\subsection*{محاسبه \(Q^T b\)}
+	ضرب ماتریس \(Q^T\) در \(b\):
+	\[
+	Q^T b = \begin{bmatrix}
+		\sqrt{3} \\
+		\frac{1}{\sqrt{6}}
+	\end{bmatrix}.
+	\]
+	\subsection*{حل \(Rx = Q^T b\)}
+	با جایگذاری مقادیر، معادله به صورت زیر حل می‌شود:
+	\[
+	Rx = \begin{bmatrix}
+		\sqrt{3} \\
+		\frac{1}{\sqrt{6}}
+	\end{bmatrix}.
+	\]
+	جواب نهایی:
+	\[
+	x = \begin{bmatrix}
+		0 \\
+		1
+	\end{bmatrix}.
+	\]
+\end{solution}
+این روش نشان می‌دهد که با استفاده از تجزیه QR می‌توان مسئله حداقل مربعات را به سادگی و با دقت بالا حل کرد. برنامه زیر کد پایتون برای تجزیه QR یک ماتریس است:
+
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			import numpy as np
+			A = np.array([[1, 1], 
+			[1, 2], 
+			[1, 3]])
+			Q, R = np.linalg.qr(A)
+			print("Matrix A:")
+			print(A)
+			
+			print("\nMatrix Q (Orthogonal):")
+			print(Q)
+			
+			print("\nMatrix R (Upper Triangular):")
+			print(R)
+			
+			print("\nQ.T @ Q (Should be Identity Matrix):")
+			print(Q.T @ Q)
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+خروجی برنامه بالا به صورت زیر خواهد بود.
+
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			Matrix A:
+			[[1 1]
+			[1 2]
+			[1 3]]
+			
+			Matrix Q (Orthogonal):
+			[[-5.77350269e-01  7.07106781e-01]
+			[-5.77350269e-01  5.55111512e-17]
+			[-5.77350269e-01 -7.07106781e-01]]
+			
+			Matrix R (Upper Triangular):
+			[[-1.73205081 -3.46410162]
+			[ 0.         -1.41421356]]
+			
+			Q.T @ Q (Should be Identity Matrix):
+			[[ 1.00000000e+00 -1.16219581e-16]
+			[-1.16219581e-16  1.00000000e+00]]
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+با استفاده از برنامه زیر می‌توان مسئله کمترین مربعات را حل کرد:
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			import numpy as np
+			A = np.array([[1, 1], 
+			[1, 2], 
+			[1, 3]])
+			b = np.array([1, 2, 2])
+			Q, R = np.linalg.qr(A)
+			Q_T_b = np.dot(Q.T, b)
+			x = np.linalg.solve(R, Q_T_b)
+			print("Matrix A:")
+			print(A)
+			
+			print("\nVector b:")
+			print(b)
+			
+			print("\nMatrix Q (Orthogonal):")
+			print(Q)
+			
+			print("\nMatrix R (Upper Triangular):")
+			print(R)
+			
+			print("\nQ.T @ b:")
+			print(Q_T_b)
+			
+			print("\nSolution x (Least Squares):")
+			print(x)
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+خروجی برنامه قبل به صورت زیر خواهد بود
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			Matrix A:
+			[[1 1]
+			[1 2]
+			[1 3]]
+			
+			Vector b:
+			[1 2 2]
+			
+			Matrix Q (Orthogonal):
+			[[-5.77350269e-01  7.07106781e-01]
+			[-5.77350269e-01  5.55111512e-17]
+			[-5.77350269e-01 -7.07106781e-01]]
+			
+			Matrix R (Upper Triangular):
+			[[-1.73205081 -3.46410162]
+			[ 0.         -1.41421356]]
+			
+			Q.T @ b:
+			[-2.88675135 -0.70710678]
+			
+			Solution x (Least Squares):
+			[0.66666667 0.5       ]
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+\begin{exercise}
+	ماتریس \(A\) و بردار \(b\) زیر داده شده‌اند. با استفاده از تجزیه QR، مسئله حداقل مربعات را حل کنید.
+	\[
+	A = \begin{bmatrix}
+		2 & -1 \\
+		1 & 3 \\
+		4 & 1
+	\end{bmatrix}, \quad
+	b = \begin{bmatrix}
+		1 \\
+		7 \\
+		9
+	\end{bmatrix}.
+	\]
+\end{exercise}
+\begin{exercise}
+	برای ماتریس زیر، تجزیه QR را به دست آورده و از آن برای حل دستگاه معادلات استفاده کنید:
+	\[
+	A = \begin{bmatrix}
+		1 & 2 & 1 \\
+		2 & 4 & 3 \\
+		3 & 6 & 5
+	\end{bmatrix}, \quad
+	b = \begin{bmatrix}
+		6 \\
+		15 \\
+		24
+	\end{bmatrix}.
+	\]
+\end{exercise}
+\begin{exercise}
+	یک سیستم خطی ناسازگار داده شده است. از تجزیه QR برای پیدا کردن پاسخ حداقل مربعات استفاده کنید:
+	\[
+	A = \begin{bmatrix}
+		1 & 2 \\
+		3 & 5 \\
+		2 & 4
+	\end{bmatrix}, \quad
+	b = \begin{bmatrix}
+		7 \\
+		10 \\
+		8
+	\end{bmatrix}.
+	\]
+\end{exercise}
+\section{مقادیر تکین}
+\begin{definition}
+	مقادیر تکین (\textbf{Singular Values}) مقادیر قطری ماتریس \(\Sigma\) در تجزیه مقدار تکین (SVD) هستند که از ریشه مقادیر ویژه ماتریس \(A^T A\) به دست می‌آیند:
+	\[
+	\sigma_i = \sqrt{\lambda_i},
+	\]
+	که \(\lambda_i\) مقادیر ویژه \(A^T A\) است.
+\end{definition}
+\subsubsection{ویژگی‌ها}
+\begin{itemize}
+	\item مقادیر تکین همیشه غیرمنفی هستند.
+	\item مرتبه‌ی ماتریس برابر است با تعداد مقادیر تکین غیرصفر.
+	\item بزرگ‌ترین مقدار تکین (\(\sigma_1\)) برابر است با هنجار اپراتور ماتریس:
+	\[
+	\|A\|_2 = \sigma_1.
+	\]
+	\item مجموع مربعات مقادیر تکین برابر است با هنجار فروبنیوس ماتریس:
+	\[
+	\|A\|_F = \sqrt{\sum_{i=1}^r \sigma_i^2}.
+	\]
+\end{itemize}
+\begin{example}
+	
+	فرض کنید:
+	\[
+	A = \begin{bmatrix}
+		2 & 0 \\
+		0 & 1 \\
+		0 & 0
+	\end{bmatrix}.
+	\]
+	مقادیر تکین ماتریس 
+	$A$
+	را بدست آورید.
+\end{example}
+\begin{solution}
+	
+	\begin{enumerate}
+		\item محاسبه \(A^T A\):
+		\[
+		A^T A = \begin{bmatrix}
+			4 & 0 \\
+			0 & 1
+		\end{bmatrix}.
+		\]
+		\item مقادیر ویژه \(A^T A\):
+		\[
+		\lambda_1 = 4, \quad \lambda_2 = 1.
+		\]
+		\item مقادیر تکین:
+		\[
+		\sigma_1 = \sqrt{\lambda_1} = 2, \quad \sigma_2 = \sqrt{\lambda_2} = 1.
+		\]
+		\item ماتریس \(\Sigma\):
+		\[
+		\Sigma = \begin{bmatrix}
+			2 & 0 \\
+			0 & 1 \\
+			0 & 0
+		\end{bmatrix}.
+		\]
+	\end{enumerate}
+\end{solution}
+\section{تجزیه مقدار تکین (SVD)}
+
+\begin{definition}
+	
+	
+	تجزیه مقدار تکین (SVD) یک ماتریس \(A\) به صورت زیر تجزیه می‌شود:
+	\[
+	A = U \Sigma V^T
+	\]
+	که در آن:
+	\begin{itemize}
+		\item \(U\): ماتریسی با ستون‌های متعامد از فضای ستون.
+		\item \(\Sigma\): ماتریسی قطری شامل مقادیر تکین.
+		\item \(V^T\): ماتریسی با ستون‌های متعامد از فضای سطر.
+	\end{itemize}
+\end{definition}
+\subsection{خواص}
+\begin{itemize}
+	\item مقادیر قطری \(\Sigma\) همان مقادیر تکین \(A\) هستند.
+	\item ستون‌های \(U\) و \(V\) پایه‌های متعامد فضاهای ستون و سطر هستند.
+	\item مرتبه‌ی \(A\) برابر با تعداد مقادیر تکین غیرصفر است.
+\end{itemize}
+\subsection{مراحل انجام تجزیه مقدار تکین (SVD)}
+برای انجام تجزیه مقدار تکین، معمولاً مراحل زیر را دنبال می‌کنیم:
+
+\begin{enumerate}
+	\item محاسبه \(A^T A\) و \(A A^T\).
+	\item محاسبه مقادیر ویژه و بردارهای ویژه برای ماتریس‌های \(A^T A\) و \(A A^T\).
+	\item ساخت ماتریس‌های \(U\) و \(V\) با استفاده از بردارهای ویژه.
+	\item ساخت ماتریس قطری \(\Sigma\) که مقادیر تکین در آن قرار می‌گیرند.
+	\item ساخت تجزیه نهایی به صورت \(A = U \Sigma V^T\).
+\end{enumerate}
+\begin{nokteh}
+	
+	\subsection*{ساخت ماتریس‌های \(U\) و \(V\)}
+	بردارهای ویژه \(A^T A\) به ستون‌های ماتریس \(V\) و بردارهای ویژه \(A A^T\) به ستون‌های ماتریس \(U\) اختصاص داده می‌شوند.
+\end{nokteh}
+\begin{nokteh}
+	\subsection*{ساخت ماتریس \(\Sigma\)}
+	مقادیر تکین که ریشه مقادیر ویژه هستند، در قطر ماتریس \(\Sigma\) قرار می‌گیرند.
+\end{nokteh}
+\begin{example}
+	
+	فرض کنید ماتریس زیر داده شده است:
+	\[
+	A = \begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 0
+	\end{bmatrix}.
+	\]
+	تجزیه مقدار تکین \(A\) به صورت زیر است:
+	\[
+	U = \begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1
+	\end{bmatrix}, \quad
+	\Sigma = \begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 0
+	\end{bmatrix}, \quad
+	V = \begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1
+	\end{bmatrix}.
+	\]
+	
+\end{example}
+\subsection{کاربردها}
+\begin{itemize}
+	\item \textbf{فشرده‌سازی تصویر:} کاهش حجم داده‌های تصویری.
+	\item \textbf{حل دستگاه معادلات:} استفاده در حل مسائل حداقل مربعات.
+	\item \textbf{کاهش ابعاد:} استفاده در یادگیری ماشین برای کاهش ویژگی‌ها.
+\end{itemize}
+\textbf{با استفاده از برنامه زیر می‌توان تجزیه مقدار تکین را بدست آورد:}
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			import numpy as npA = np.array([[1, 2], 
+			[3, 4]])
+			U, Sigma, Vt = np.linalg.svd(A)
+			print("Matrix U:")
+			print(U)
+			print("\n Matrix Sigma (Singular Values):")
+			print(Sigma)
+			print("\n Matrix Vt:")
+			print(Vt)
+			A_reconstructed = np.dot(U, np.dot(np.diag(Sigma), Vt))
+			print("\n Matrix A:")
+			print(A_reconstructed)
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+\textbf{خروجی برنامه فوق به صورت زیر خواهد بود:}
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			Matrix U:
+			[[-0.40455358 -0.9145143 ]
+			[-0.9145143   0.40455358]]
+			
+			Matrix Sigma (Singular Values):
+			[5.4649857  0.36596619]
+			
+			Matrix Vt:
+			[[-0.57604844 -0.81741556]
+			[ 0.81741556 -0.57604844]]
+			
+			Matrix A:
+			[[1. 2.]
+			[3. 4.]]
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+\subsection{مسئله کمترین مربعات}
+
+مسئله کمترین مربعات به طور کلی به صورت زیر تعریف می‌شود:
+
+\[
+\text{Minimize} \quad \|Ax - b\|_2^2
+\]
+
+که در آن:
+
+\begin{itemize}
+	\item \(A\) یک ماتریس \(m \times n\) است.
+	\item \(x\) بردار \(n \times 1\) است که باید پیدا شود.
+	\item \(b\) یک بردار \(m \times 1\) است.
+\end{itemize}
+
+هدف این است که بردار \(x\) را طوری پیدا کنیم که مجموع مربعات تفاوت‌ها بین \(Ax\) و \(b\) را کمینه کند.
+
+\subsubsection{استفاده از تجزیه مقدار تکین برای حل مسئله کمترین مربعات}
+
+تجزیه مقدار تکین \(A\) را به صورت زیر انجام می‌دهیم:
+
+\[
+A = U \Sigma V^T
+\]
+
+که در آن:
+
+\begin{itemize}
+	\item \(U\) یک ماتریس \(m \times m\) است.
+	\item \(\Sigma\) یک ماتریس قطری \(m \times n\) است که مقادیر تکین در آن قرار دارند.
+	\item \(V^T\) یک ماتریس \(n \times n\) است.
+\end{itemize}
+
+برای حل مسئله کمترین مربعات، فرمول زیر را داریم:
+
+\[
+x = V \Sigma^{-1} U^T b
+\]
+
+در این فرمول، از \(U\) و \(V^T\) در تجزیه مقدار تکین استفاده می‌کنیم تا بردار \(x\) را به دست آوریم.
+
+
+
+\begin{example}
+	فرض کنید ماتریس \(A\) و بردار \(b\) به شکل زیر باشند:
+	
+	\[
+	A = \begin{bmatrix} 
+		1 & 2 \\
+		2 & 3 \\
+		3 & 4 \\
+	\end{bmatrix}, \quad b = \begin{bmatrix} 5 \\ 6 \\ 7 \end{bmatrix}
+	\]
+	
+	هدف ما حل کردن معادله \(Ax = b\) به وسیله کمترین مربعات است.
+	
+\end{example}
+\subsubsection{برنامه پایتون برای تجزیه مقدار تکین و حل مسئله کمترین مربعات}
+
+در اینجا برنامه پایتون برای حل مسئله کمترین مربعات با استفاده از تجزیه مقدار تکین آمده است:
+
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			import numpy as np
+			A = np.array([[1, 2], [2, 3], [3, 4]])
+			b = np.array([5, 6, 7])
+			U, Sigma, Vt = np.linalg.svd(A)
+			Sigma_inv = np.diag(1 / Sigma)
+			x = Vt.T @ Sigma_inv @ U.T @ b
+			print("Vector x:")
+			print(x)
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+
+
+\begin{nokteh}
+	\begin{itemize}
+		\item در ابتدا، ماتریس \(A\) و بردار \(b\) را تعریف می‌کنیم.
+		\item سپس با استفاده از تابع \texttt{np.linalg.svd}، تجزیه مقدار تکین را انجام می‌دهیم و مقادیر \(U\)، \(\Sigma\) و \(V^T\) را به دست می‌آوریم.
+		\item بعد از آن، معکوس \(\Sigma\) را محاسبه کرده و از آن برای حل مسئله کمترین مربعات استفاده می‌کنیم.
+		\item در نهایت، بردار \(x\) که حل مسئله کمترین مربعات است، محاسبه می‌شود.
+	\end{itemize}
+\end{nokteh}
+\title{استفاده از تجزیه مقدار تکین برای فشرده‌سازی تصویر}
+\author{}
+\date{}
+
+
+\maketitle
+\section{استفاده از تجزیه مقدار تکین برای فشرده‌سازی تصویر}
+\subsection{مقدمه}
+
+فشرده‌سازی تصویر به فرآیندی اطلاق می‌شود که هدف آن کاهش حجم داده‌های یک تصویر بدون از دست دادن اطلاعات مهم آن است. یکی از روش‌های مؤثر برای فشرده‌سازی تصویر، استفاده از تجزیه مقدار تکین (SVD) است. در این روش، تصویر به ماتریس تبدیل شده و سپس با استفاده از SVD، اطلاعات تصویر به گونه‌ای فشرده می‌شوند که بیشترین داده‌ها حفظ شوند و حجم تصویر کاهش یابد.
+
+\subsection{تجزیه مقدار تکین (SVD)}
+
+فرض کنید تصویر را به صورت یک ماتریس دو بعدی \(A\) در نظر بگیریم که هر عنصر آن نشان‌دهنده شدت رنگ در پیکسل‌های تصویر است. تجزیه مقدار تکین این ماتریس را به صورت زیر انجام می‌دهیم:
+
+\[
+A = U \Sigma V^T
+\]
+
+که در آن:
+
+\begin{itemize}
+	\item \(A\) ماتریس \(m \times n\) است که نمایانگر تصویر است.
+	\item \(U\) یک ماتریس \(m \times m\) است که شامل بردارهای تکین چپ می‌باشد.
+	\item \(\Sigma\) یک ماتریس قطری \(m \times n\) است که مقادیر تکین در آن قرار دارند.
+	\item \(V^T\) یک ماتریس \(n \times n\) است که شامل بردارهای تکین راست است.
+\end{itemize}
+
+در فشرده‌سازی تصویر، هدف این است که به جای ذخیره‌سازی تمام مقادیر ماتریس \(A\)، تنها مقادیر مهم و ضروری را که به کمک مقادیر تکین قابل بازسازی هستند، ذخیره کنیم.
+
+\subsection{مراحل فشرده‌سازی تصویر با استفاده از SVD}
+
+فرآیند فشرده‌سازی تصویر با استفاده از تجزیه مقدار تکین به شرح زیر است:
+
+\begin{enumerate}
+	\item ابتدا تصویر را به ماتریس تبدیل می‌کنیم. هر پیکسل از تصویر معادل یک عدد در ماتریس \(A\) است.
+	\item سپس تجزیه مقدار تکین \(A\) را انجام می‌دهیم و مقادیر تکین \(U\)، \(\Sigma\) و \(V^T\) را استخراج می‌کنیم.
+	\item به منظور فشرده‌سازی، تنها تعداد محدودی از مقادیر بزرگ‌ترین مقادیر تکین (درون ماتریس \(\Sigma\)) را نگه می‌داریم و بقیه را صفر می‌کنیم. این کار باعث کاهش ابعاد ماتریس \(\Sigma\) می‌شود.
+	\item سپس تصویر را از طریق ماتریس‌های \(U\)، \(\Sigma\) و \(V^T\) بازسازی می‌کنیم. این بازسازی تصویر فشرده شده است.
+	\item در نهایت تصویر فشرده شده را ذخیره می‌کنیم.
+\end{enumerate}
+
+\subsection{مزایای استفاده از SVD در فشرده‌سازی تصویر}
+
+\begin{itemize}
+	\item \textbf{حفظ ویژگی‌های اصلی تصویر:} با انتخاب مقادیر تکین بزرگ و حذف مقادیر کوچک، می‌توان ویژگی‌های اصلی تصویر را حفظ کرده و در عین حال حجم داده‌ها را کاهش داد.
+	\item \textbf{کاهش حجم داده‌ها:} با ذخیره کردن تنها مقادیر تکین اصلی و کاهش ابعاد ماتریس \(\Sigma\)، حجم داده‌ها به طور قابل توجهی کاهش می‌یابد.
+	\item \textbf{توانایی بازسازی تصویر با دقت بالا:} با استفاده از تعداد محدودی از مقادیر تکین، می‌توان تصویری بازسازی کرد که مشابه تصویر اصلی باشد.
+\end{itemize}
+
+\section{مثال عددی}
+
+فرض کنید ماتریس \(A\) یک تصویر ساده 3x3 باشد:
+
+\[
+A = \begin{bmatrix}
+	1 & 2 & 3 \\
+	4 & 5 & 6 \\
+	7 & 8 & 9
+\end{bmatrix}
+\]
+
+تجزیه مقدار تکین \(A\) را انجام می‌دهیم:
+
+\[
+A = U \Sigma V^T
+\]
+
+در این مثال، ماتریس \(\Sigma\) شامل مقادیر تکین خواهد بود. برای فشرده‌سازی، می‌توانیم تنها بزرگ‌ترین مقادیر تکین را نگه داریم و بقیه را صفر کنیم.
+
+\subsection{کد پایتون برای فشرده‌سازی تصویر}
+
+در اینجا یک کد پایتون ساده برای فشرده‌سازی تصویر با استفاده از SVD آورده شده است:
+\begin{code}
+	\begin{latin}
+		\begin{lstlisting}
+			import numpy as np
+			import matplotlib.pyplot as plt
+			A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+			U, Sigma, Vt = np.linalg.svd(A)
+			k = 2
+			Sigma_k = np.diag(Sigma[:k])
+			A_compressed = U[:, :k] @ Sigma_k @ Vt[:k, :]
+			print(" Original Image:")
+			print(A)
+			print("Compact Image:")
+			print(A_compressed)
+			plt.subplot(1, 2, 1)
+			plt.title("Original Image")
+			plt.imshow(A, cmap='gray', interpolation='none')
+			plt.subplot(1, 2, 2)
+			plt.title("Compact Image")
+			plt.imshow(A_compressed, cmap='gray', interpolation='none')
+			plt.show()
+		\end{lstlisting}
+	\end{latin}
+\end{code}
+
+\section{تقریب با استفاده از چندجمله‌ای‌ها}
+
+در ریاضیات و محاسبات عددی، یکی از روش‌های مهم برای تقریب توابع پیچیده، استفاده از چندجمله‌ای‌ها است. ایده اصلی این روش این است که یک تابع پیچیده \(f(x)\) را با یک چندجمله‌ای \(P(x)\) تقریب بزنیم که محاسبه آن ساده‌تر باشد و در عین حال خطای ناشی از تقریب کوچک باشد.
+
+\section{تعریف}
+
+چندجمله‌ای‌ها توابعی به شکل زیر هستند:
+
+\[
+P(x) = a_0 + a_1x + a_2x^2 + \dots + a_nx^n
+\]
+
+که \(a_0, a_1, \dots, a_n\) ضرایب چندجمله‌ای و \(n\) درجه چندجمله‌ای است. هدف از تقریب با چندجمله‌ای‌ها، یافتن ضرایب \(a_i\) به گونه‌ای است که اختلاف \(P(x)\) و \(f(x)\) تا حد ممکن کوچک باشد.
+
+\section{انواع تقریب با چندجمله‌ای‌ها}
+
+روش‌های مختلفی برای تقریب توابع با چندجمله‌ای‌ها وجود دارد که مهم‌ترین آن‌ها عبارتند از:
+
+\subsection{تقریب تیلور}
+
+در تقریب تیلور، تابع \(f(x)\) حول یک نقطه خاص \(x = a\) با استفاده از مشتقاتش تقریب زده می‌شود. چندجمله‌ای تیلور به شکل زیر است:
+
+\[
+P_n(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \dots + \frac{f^{(n)}(a)}{n!}(x-a)^n
+\]
+
+این روش برای توابعی که مشتقات آن‌ها در نقطه \(a\) قابل محاسبه است، بسیار مناسب است.
+
+\subsection{تقریب کمترین مربعات}
+
+در این روش، ضرایب \(a_0, a_1, \dots, a_n\) به گونه‌ای تعیین می‌شوند که مجموع مربعات خطاهای بین \(f(x)\) و \(P(x)\) حداقل شود:
+
+\[
+\min \sum_{i=1}^m \left(f(x_i) - P(x_i)\right)^2
+\]
+
+این روش برای داده‌های گسسته و مسائل رگرسیون بسیار کاربرد دارد.
+\section{مزایای استفاده از چندجمله‌ای‌ها برای تقریب}
+
+\begin{itemize}
+	\item ساده‌سازی محاسبات: چندجمله‌ای‌ها توابع ساده‌ای هستند که محاسبات با آن‌ها به راحتی انجام می‌شود.
+	\item تطبیق با داده‌های گسسته: در مسائل عملی که داده‌ها گسسته هستند، چندجمله‌ای‌ها ابزار مناسبی برای تقریب داده‌ها هستند.
+	\item کاهش خطا: با افزایش درجه چندجمله‌ای، می‌توان دقت تقریب را افزایش داد.
+\end{itemize}
+
+\begin{example}
+	تقریب تابع \(\sin(x)\) با استفاده از بسط تیلور
+\end{example}
+
+\begin{solution}
+	تابع \(\sin(x)\) را می‌توان حول نقطه \(x=0\) به صورت زیر تقریب زد:
+	
+	\[
+	\sin(x) \approx x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots
+	\]
+	
+	برای \(x \in [-\pi, \pi]\)، این تقریب دقت خوبی دارد.
+\end{solution}
+
+
+\begin{exercise}
+	تقریب کمترین مربعات
+	
+	فرض کنید داده‌های زیر داده شده است:
+	
+	\[
+	(x, y) = \{(1, 2), (2, 2.5), (3, 3.7), (4, 4.9)\}
+	\]
+	
+	می‌خواهیم یک چندجمله‌ای خطی \(P(x) = a_0 + a_1x\) بیابیم که داده‌ها را با روش کمترین مربعات تقریب بزند. با استفاده از فرمول‌های کمترین مربعات، مقادیر \(a_0\) و \(a_1\) محاسبه می‌شوند.
+	
+\end{exercise}
+\section{چندجمله‌ای بهترین تقریب در مفهوم نرم ۲}
+
+در بسیاری از مسائل ریاضیات و مهندسی، هدف تقریب یک تابع پیچیده \(f(x)\) با یک چندجمله‌ای \(P(x)\) است که خطای این تقریب در یک مفهوم مشخص حداقل شود. یکی از معیارهای مهم، استفاده از مفهوم \textbf{نرم ۲} است. در این روش، خطا به صورت مجموع مربعات اندازه‌گیری می‌شود و هدف پیدا کردن چندجمله‌ای است که این خطا را مینیمم کند.
+
+\section{ضرب داخلی و مفهوم نرم ۲}
+
+در فضای توابع، ضرب داخلی به صورت زیر تعریف می‌شود:
+
+\[
+\langle f, g \rangle = \int_a^b f(x) g(x) w(x) \, dx
+\]
+
+که در آن:
+\begin{itemize}
+	\item \(f(x)\) و \(g(x)\): توابع تعریف‌شده در بازه \([a, b]\)،
+	\item \(w(x)\): تابع وزن غیرمنفی که در مسائل خاص نقش مهمی ایفا می‌کند.
+\end{itemize}
+
+نرم یک تابع نیز بر اساس این ضرب داخلی به صورت زیر تعریف می‌شود:
+
+\[
+\|f\|_2 = \sqrt{\langle f, f \rangle}.
+\]
+
+\section{چندجمله‌ای بهترین تقریب}
+
+هدف یافتن یک چندجمله‌ای \(P_n(x)\) از درجه \(n\) است که خطای تقریب \(\|f - P_n\|_2\) را حداقل کند. این خطا با تعریف زیر بیان می‌شود:
+
+\[
+E = \|f - P_n\|_2 = \sqrt{\int_a^b \left(f(x) - P_n(x)\right)^2 w(x) \, dx}.
+\]
+
+برای مینیمم کردن این خطا، \(P_n(x)\) به صورت ترکیبی خطی از توابع پایه \(1, x, x^2, \dots, x^n\) بیان می‌شود:
+
+\[
+P_n(x) = c_0 + c_1x + c_2x^2 + \dots + c_nx^n.
+\]
+
+\subsection{شرط متعامد بودن}
+
+شرط لازم برای یافتن ضرایب \(c_0, c_1, \dots, c_n\) این است که خطای تقریب \((f(x) - P_n(x))\) با هر تابع پایه \(x^k\) متعامد باشد:
+
+\[
+\langle f(x) - P_n(x), x^k \rangle = 0, \quad k = 0, 1, \dots, n.
+\]
+
+با جایگذاری \(P_n(x)\) در این معادله و اعمال خواص خطی ضرب داخلی، معادله‌های زیر برای ضرایب به دست می‌آید:
+
+\[
+\int_a^b f(x) x^k w(x) \, dx = \sum_{j=0}^n c_j \int_a^b x^j x^k w(x) \, dx.
+\]
+
+این دستگاه معادلات خطی را می‌توان برای یافتن ضرایب \(c_j\) حل کرد.
+
+\begin{example}
+	
+	فرض کنید \(f(x) = e^x\) و می‌خواهیم یک چندجمله‌ای از درجه \(2\) در بازه \([0, 1]\) پیدا کنیم که بهترین تقریب را در مفهوم نرم ۲ ارائه دهد. فرض کنید \(w(x) = 1\).
+\end{example}
+
+\begin{solution}
+	\subsection{توابع پایه}
+	توابع پایه عبارتند از:
+	\[
+	1, x, x^2.
+	\]
+	\subsection{معادلات ضرب داخلی}
+	
+	ضرایب \(c_0, c_1, c_2\) با حل معادلات زیر به دست می‌آیند:
+	\[
+	\int_0^1 e^x \, dx = c_0 \int_0^1 1 \, dx + c_1 \int_0^1 x \, dx + c_2 \int_0^1 x^2 \, dx,
+	\]
+	\[
+	\int_0^1 e^x x \, dx = c_0 \int_0^1 x \, dx + c_1 \int_0^1 x^2 \, dx + c_2 \int_0^1 x^3 \, dx,
+	\]
+	\[
+	\int_0^1 e^x x^2 \, dx = c_0 \int_0^1 x^2 \, dx + c_1 \int_0^1 x^3 \, dx + c_2 \int_0^1 x^4 \, dx.
+	\]
+	این دستگاه معادلات را می‌توان به صورت عددی یا تحلیلی حل کرد.
+\end{solution}
+
+\section{ساخت پایه متعامد از چند جمله‌ای‌ها}
+
+در فضای توابع، ساخت یک پایه متعامد اهمیت زیادی در حل مسائل تقریب، روش‌های عددی، و تحلیل داده‌ها دارد. در این بخش، روشی برای ساخت یک مجموعه از چندجمله‌ای‌های متعامد با استفاده از فرایند گرام-اشمیت شرح داده می‌شود.
+
+\section{تعریف ضرب داخلی}
+
+ابتدا ضرب داخلی در فضای توابع تعریف می‌شود. فرض کنید مجموعه توابع در بازه \([a, b]\) تعریف شده‌اند و یک تابع وزن \(w(x) > 0\) وجود دارد. ضرب داخلی بین دو تابع \(f(x)\) و \(g(x)\) به صورت زیر تعریف می‌شود:
+
+\[
+\langle f, g \rangle = \int_a^b f(x) g(x) w(x) \, dx.
+\]
+
+توابع \(f(x)\) و \(g(x)\) متعامد هستند اگر:
+
+\[
+\langle f, g \rangle = 0.
+\]
+
+\section{فرایند گرام-اشمیت برای ساخت پایه متعامد}
+
+برای ساخت پایه متعامد از چندجمله‌ای‌ها \(\{1, x, x^2, \dots\}\)، از فرایند گرام-اشمیت استفاده می‌کنیم. فرض کنید \(\{p_0, p_1, \dots, p_n\}\) چندجمله‌ای‌های متعامد باشند. مراحل ساخت عبارتند از:
+
+\subsection{گام ۱: شروع با چندجمله‌ای اولیه}
+
+اولین چندجمله‌ای \(p_0(x)\) را برابر با \(1\) انتخاب می‌کنیم:
+
+\[
+p_0(x) = 1.
+\]
+
+\subsection{گام ۲: حذف مؤلفه‌های قبلی}
+
+برای ساخت چندجمله‌ای \(p_k(x)\)، ابتدا چندجمله‌ای اولیه \(x^k\) را در نظر می‌گیریم. سپس مؤلفه‌های هم‌راستا با چندجمله‌ای‌های قبلی را حذف می‌کنیم:
+
+\[
+p_k(x) = x^k - \sum_{j=0}^{k-1} \frac{\langle x^k, p_j \rangle}{\langle p_j, p_j \rangle} p_j(x).
+\]
+
+\subsection{گام ۳: نرمال‌سازی (اختیاری)}
+
+برای نرمال‌سازی پایه متعامد، هر چندجمله‌ای را بر نرم آن تقسیم می‌کنیم:
+
+\[
+\hat{p}_k(x) = \frac{p_k(x)}{\sqrt{\langle p_k, p_k \rangle}}.
+\]
+\begin{example}
+	ساخت پایه متعامد در \([0, 1]\) با وزن ثابت
+\end{example}
+\begin{solution}
+	
+	فرض کنید \(w(x) = 1\) و بازه \([0, 1]\) باشد. مراحل ساخت به صورت زیر است:
+	
+	\subsection{پایه اول}
+	\[
+	p_0(x) = 1.
+	\]
+	\subsection{پایه دوم}
+	\[
+	p_1(x) = x - \frac{\langle x, p_0 \rangle}{\langle p_0, p_0 \rangle} p_0(x).
+	\]
+	محاسبه ضرب داخلی‌ها:
+	\[
+	\langle x, p_0 \rangle = \int_0^1 x \cdot 1 \, dx = \frac{1}{2}, \quad \langle p_0, p_0 \rangle = \int_0^1 1^2 \, dx = 1.
+	\]
+	بنابراین:
+	\[
+	p_1(x) = x - \frac{1}{2}.
+	\]
+	\subsection{پایه سوم}
+	
+	\[
+	p_2(x) = x^2 - \frac{\langle x^2, p_0 \rangle}{\langle p_0, p_0 \rangle} p_0(x) - \frac{\langle x^2, p_1 \rangle}{\langle p_1, p_1 \rangle} p_1(x).
+	\]
+	
+	محاسبه ضرب داخلی‌ها:
+	\[
+	\langle x^2, p_0 \rangle = \int_0^1 x^2 \cdot 1 \, dx = \frac{1}{3}, \quad \langle x^2, p_1 \rangle = \int_0^1 x^2 \cdot \left(x - \frac{1}{2}\right) \, dx = \frac{1}{12},
+	\]
+	\[
+	\langle p_1, p_1 \rangle = \int_0^1 \left(x - \frac{1}{2}\right)^2 \, dx = \frac{1}{12}.
+	\]
+	
+	بنابراین:
+	\[
+	p_2(x) = x^2 - \frac{1}{3} - \frac{\frac{1}{12}}{\frac{1}{12}} \left(x - \frac{1}{2}\right).
+	\]
+\end{solution}
+
+\section{تقریب توابع با استفاده از بسط فوریه}
+بسط فوریه ابزاری قدرتمند برای تقریب توابع در فضای توابع متناوب است. این روش بر پایه نمایش یک تابع به صورت جمعی از توابع مثلثاتی (سینوسی و کسینوسی) استوار است. 
+
+\section{تعریف بسط فوریه}
+
+فرض کنید تابع \(f(x)\) در بازه \([-L, L]\) تعریف شده و متناوب باشد. بسط فوریه این تابع به صورت زیر نوشته می‌شود:
+
+\[
+f(x) \sim a_0 + \sum_{n=1}^\infty \left( a_n \cos\left(\frac{n \pi x}{L}\right) + b_n \sin\left(\frac{n \pi x}{L}\right) \right),
+\]
+
+که در آن ضرایب \(a_0\)، \(a_n\)، و \(b_n\) به صورت زیر تعریف می‌شوند:
+\[
+a_0 = \frac{1}{2L} \int_{-L}^L f(x) \, dx,
+\]
+\[
+a_n = \frac{1}{L} \int_{-L}^L f(x) \cos\left(\frac{n \pi x}{L}\right) \, dx,
+\]
+\[
+b_n = \frac{1}{L} \int_{-L}^L f(x) \sin\left(\frac{n \pi x}{L}\right) \, dx.
+\]
+
+\section{خواص بسط فوریه}
+\begin{enumerate}
+	\item 
+	دوره تناوب: توابع بسط یافته با دوره \(2L\) متناوب هستند.
+	\item 
+	تقریب بهینه: بسط فوریه بهترین تقریب در فضای \(L^2\) است.
+	\item 
+	همگرایی: بسط فوریه برای توابع قطعه‌ای پیوسته به تابع اصلی همگرا می‌شود.
+\end{enumerate}
+
+
+\begin{example}
+	بسط فوریه تابع خطی
+	
+\end{example}
+\begin{solution}
+	
+	فرض کنید \(f(x) = x\) در بازه \([-1, 1]\). ضرایب فوریه به صورت زیر محاسبه می‌شوند:
+	
+	\[
+	a_0 = \frac{1}{2} \int_{-1}^1 x \, dx = 0,
+	\]
+	\[
+	a_n = \int_{-1}^1 x \cos(n \pi x) \, dx,
+	\]
+	\[
+	b_n = \int_{-1}^1 x \sin(n \pi x) \, dx.
+	\]
+	
+	با انجام محاسبات:
+	\[
+	a_n = 0, \quad b_n = \frac{2(-1)^n}{n \pi}.
+	\]
+	
+	بنابراین:
+	\[
+	f(x) \sim \sum_{n=1}^\infty \frac{2(-1)^n}{n \pi} \sin(n \pi x).
+	\]
+\end{solution}
+\begin{example}
+	بسط فوریه تابع پله‌ای: 	فرض کنید \(f(x)\) به صورت زیر تعریف شود:
+	\[
+	f(x) = 
+	\begin{cases} 
+		1, & -1 \leq x < 0, \\
+		-1, & 0 \leq x \leq 1.
+	\end{cases}
+	\]
+\end{example}
+
+\begin{solution}
+	ضرایب فوریه محاسبه می‌شوند:
+	\[
+	a_0 = 0, \quad a_n = 0, \quad b_n = \frac{2}{n \pi} \left(1 - (-1)^n\right).
+	\]
+	
+	بنابراین:
+	\[
+	f(x) \sim \sum_{n=1, \text{odd}}^\infty \frac{4}{n \pi} \sin(n \pi x).
+	\]
+\end{solution}

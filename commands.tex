@@ -1,0 +1,120 @@
+\usepackage{tcolorbox} % بسته برای ایجاد باکس رنگی
+\usepackage{amsmath, amssymb} % بسته‌های ریاضی
+\usepackage{listings}
+\lstset{
+	language=Python,
+	basicstyle=\small\ttfamily,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{green},
+	showstringspaces=false,
+	breaklines=true,
+	frame=single
+}
+\usepackage{graphicx} % برای گرافیک و تصاویر
+\usepackage{hyperref} % برای لینک‌های داخل متن
+
+% تنظیمات صفحه
+\usepackage[a4paper, margin=3cm]{geometry}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{xepersian}
+\settextfont[Scale=1.2]{Yas}
+\setlatintextfont[Scale=1.2]{Times New Roman} % تنظیم فونت انگلیسی
+% تعریف محیط example
+\newtcolorbox[number within=section]{solution}[1][]{
+	colback=green!2,        % پس‌زمینه آبی کم‌رنگ
+	colframe=green!20,      % رنگ قاب
+	coltitle=black,        % رنگ عنوان
+	fonttitle=\bfseries,   % فونت عنوان ضخیم
+	boxrule=0.5mm,         % ضخامت قاب
+	arc=4mm,               % گرد بودن گوشه‌ها
+	width=\linewidth,      % عرض باکس
+	sharp corners=all,     % گوشه‌های تیز
+	left=2mm,              % فاصله متن از سمت چپ
+	right=2mm,             % فاصله متن از سمت راست
+	top=2mm,               % فاصله متن از بالا
+	bottom=2mm,            % فاصله متن از پایین
+	title=حل~\thetcbcounter, % عنوان خودکار با شماره‌دهی
+	#1                     % امکان افزودن گزینه‌های اضافی
+}
+\newtcolorbox[auto counter, number within=section]{example}[1][]{
+	colback=blue!5,        % پس‌زمینه آبی کم‌رنگ
+	colframe=blue!40,      % رنگ قاب
+	coltitle=black,        % رنگ عنوان
+	fonttitle=\bfseries,   % فونت عنوان ضخیم
+	boxrule=0.5mm,         % ضخامت قاب
+	arc=4mm,               % گرد بودن گوشه‌ها
+	width=\linewidth,      % عرض باکس
+	sharp corners=all,     % گوشه‌های تیز
+	left=2mm,              % فاصله متن از سمت چپ
+	right=2mm,             % فاصله متن از سمت راست
+	top=2mm,               % فاصله متن از بالا
+	bottom=2mm,            % فاصله متن از پایین
+	title=مثال~\thetcbcounter, % عنوان خودکار با شماره‌دهی
+	#1                     % امکان افزودن گزینه‌های اضافی
+}
+\newtcolorbox[auto counter, number within=section]{definition}[1][]{
+	colback=green!5,        % پس‌زمینه آبی کم‌رنگ
+	colframe=green!40,      % رنگ قاب
+	coltitle=black,        % رنگ عنوان
+	fonttitle=\bfseries,   % فونت عنوان ضخیم
+	boxrule=0.5mm,         % ضخامت قاب
+	arc=4mm,               % گرد بودن گوشه‌ها
+	width=\linewidth,      % عرض باکس
+	sharp corners=all,     % گوشه‌های تیز
+	left=2mm,              % فاصله متن از سمت چپ
+	right=2mm,             % فاصله متن از سمت راست
+	top=2mm,               % فاصله متن از بالا
+	bottom=2mm,            % فاصله متن از پایین
+	title=تعریف~\thetcbcounter, % عنوان خودکار با شماره‌دهی
+	#1                     % امکان افزودن گزینه‌های اضافی
+}
+\newtcolorbox[auto counter, number within=section]{exercise}[1][]{
+	colback=red!5,        % پس‌زمینه آبی کم‌رنگ
+	colframe=red!40,      % رنگ قاب
+	coltitle=black,        % رنگ عنوان
+	fonttitle=\bfseries,   % فونت عنوان ضخیم
+	boxrule=0.5mm,         % ضخامت قاب
+	arc=4mm,               % گرد بودن گوشه‌ها
+	width=\linewidth,      % عرض باکس
+	sharp corners=all,     % گوشه‌های تیز
+	left=2mm,              % فاصله متن از سمت چپ
+	right=2mm,             % فاصله متن از سمت راست
+	top=2mm,               % فاصله متن از بالا
+	bottom=2mm,            % فاصله متن از پایین
+	title=تمرین~\thetcbcounter, % عنوان خودکار با شماره‌دهی
+	#1                     % امکان افزودن گزینه‌های اضافی
+}
+\newtcolorbox[auto counter, number within=section]{code}[1][]{
+	colback=yellow!5,        % پس‌زمینه آبی کم‌رنگ
+	colframe=yellow!40,      % رنگ قاب
+	coltitle=black,        % رنگ عنوان
+	fonttitle=\bfseries,   % فونت عنوان ضخیم
+	boxrule=0.5mm,         % ضخامت قاب
+	arc=4mm,               % گرد بودن گوشه‌ها
+	width=\linewidth,      % عرض باکس
+	sharp corners=all,     % گوشه‌های تیز
+	left=2mm,              % فاصله متن از سمت چپ
+	right=2mm,             % فاصله متن از سمت راست
+	top=2mm,               % فاصله متن از بالا
+	bottom=2mm,            % فاصله متن از پایین
+	title=کد پایتون~\thetcbcounter, % عنوان خودکار با شماره‌دهی
+	#1                     % امکان افزودن گزینه‌های اضافی
+}
+\newtcolorbox[number within=section]{nokteh}[1][]{
+	%colback=red,        % پس‌زمینه آبی کم‌رنگ
+	colframe=green,      % رنگ قاب
+	coltitle=black,        % رنگ عنوان
+	fonttitle=\bfseries,   % فونت عنوان ضخیم
+	boxrule=0.5mm,         % ضخامت قاب
+	arc=4mm,               % گرد بودن گوشه‌ها
+	width=\linewidth,      % عرض باکس
+	sharp corners=all,     % گوشه‌های تیز
+	left=2mm,              % فاصله متن از سمت چپ
+	right=2mm,             % فاصله متن از سمت راست
+	top=2mm,               % فاصله متن از بالا
+	bottom=2mm,            % فاصله متن از پایین
+	title= نکته~\thetcbcounter, % عنوان خودکار با شماره‌دهی
+	#1                     % امکان افزودن گزینه‌های اضافی
+}
