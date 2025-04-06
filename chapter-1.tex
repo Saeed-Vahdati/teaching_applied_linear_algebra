@@ -503,6 +503,13 @@ c_1 (1) + c_2 (2) = 4
 	\[ (AB)_{ij} = \sum_{k=1}^{n} A_{ik} B_{kj} \]
 	
 \end{definition}
+
+\begin{code}[تعریف بردار و ماتریس در پایتون]
+	در سطر سوم برنامه زیر یک بردار و در سطر پنجم یک ماتریس در محیط پایتون تعریف شده‌اند. برای تعریف این دو نیاز به کتابخانه numpy وجود دارد که در سطر اول این کتابخانه وارد و از np به عنوان اختصار آن استفاده شده است.
+	\begin{latin}
+		\lstinputlisting[caption={}]{python_codes/VectorAndMatrix.py}  
+	\end{latin}
+\end{code}
 \subsection{نُرم ماتریس}
 نُرم یک ماتریس، تعمیمی از نُرم بردار است که اندازه یا بزرگی یک ماتریس را نشان می‌دهد. به‌طور کلی، نُرم ماتریس یک تابع $\|A\|$ است که مقدار عددی غیرمنفی را به هر ماتریس $A$ نسبت می‌دهد و باید خواص زیر را داشته باشد:
 \begin{nokteh}[خواص نُرم بردار]
@@ -594,6 +601,60 @@ A = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}
 \|A\|_2 = \max\{|\lambda_1|, |\lambda_2|\} = \max\{1, 1\} = 1
 \]
 \end{definition}
+\begin{code}[محاسبه نُرم‌های مختلف یک ماتریس در پایتون]
+	\begin{latin}
+		\lstinputlisting[caption={}]{python_codes/MatrixNorm.py} 
+		\texttt{Norm 1 (Column Norm): 9.0\\
+			Infinity Norm (Row Norm): 8.0\\
+			Frobenius Norm: 7.810249675906654\\
+			Spectral Norm (Largest Singular Value): 6.40854048954407 }
+	\end{latin}
+\end{code}
+
+\begin{code}[محاسبه تقریبی نُرم 1 یک ماتریس با استفاده از هزار بردار تصادفی غیر صفر]
+	\begin{latin}
+		\lstinputlisting[caption={}]{python_codes/DefMatrixNorm1.py}  
+		\texttt{Approximate Norm 1: 8.396903386801652}
+	\end{latin}
+\end{code}
+\begin{exercise}
+	\begin{itemize}
+		\item 
+		برای ماتریس‌های صفر و ماتریس‌های همانی انواع نُرم‌های ماتریسی را بدست آورید. چه نتیجه‌ای می‌توان گرفت؟
+		\item 
+		ماتریس زیر را در نظر بگیرید هر یک از نُرم‌های ماتریس روی آن را محاسبه کنید.
+		\[
+		D =
+		\begin{bmatrix}
+			d_1 & 0 & 0 & \dots & 0 \\
+			0 & d_2 & 0 & \dots & 0 \\
+			0 & 0 & d_3 & \dots & 0 \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & 0 & \dots & d_n
+		\end{bmatrix}
+		\]
+		\item
+		ماتریس \( A \) و بردار \( \mathbf{x} \) به صورت زیر داده شده‌اند:
+		\[
+		A = \begin{pmatrix}
+			1 & 2 \\
+			3 & 4
+		\end{pmatrix}, \quad
+		\mathbf{x} = \begin{pmatrix}
+			1 \\
+			-1
+		\end{pmatrix}
+		\]
+		حاصل \( \|A\mathbf{x}\|_2 \) و \( \|A\|_2 \cdot \|\mathbf{x}\|_2 \) را محاسبه کنید و نشان دهید که نابرابری زیر برقرار است:
+		\[
+		\|A\mathbf{x}\|_2 \leq \|A\|_2 \cdot \|\mathbf{x}\|_2
+		\]
+	\end{itemize}
+\end{exercise}
+\begin{exercise}
+	برنامه‌ای به زبان پایتون بنویسید که در آن یک ماتریس به عنوان ورودی گرفته شود و تمامی نُرم‌های معرفی شده در قبل را به عنوان خروجی نمایش دهد.
+\end{exercise}
+
 \section{ دترمینان}
 \begin{definition}[ تعریف دترمینان]
 	دترمینان یک ماتریس مربعی را می‌توان به‌صورت بازگشتی با استفاده از \textbf{بسط روی یک سطر یا ستون} محاسبه کرد.  
@@ -850,6 +911,15 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	
 \end{enumerate}		
 \end{nokteh}
+
+\begin{code}[محاسبه دترمینان یک ماتریس]
+		\begin{latin}
+			\lstinputlisting[caption={}]{python_codes/DetMatrix.py}  
+			\texttt{Determinant of matrix A:\\
+				-286.0}
+		\end{latin}
+
+\end{code}
 \section{وارون یک ماتریس}
 	
 \begin{definition}[تعریف وارون یک ماتریس]
@@ -862,7 +932,7 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	
 
 \end{definition}
-	\begin{nokteh}[نحوه محاسبه وارون ماریس‌های ۲ در ۲]
+	\begin{nokteh}[نحوه محاسبه وارون ماتریس‌های ۲ در ۲]
 		
 	محاسبه‌ی وارون ماتریس ۲×۲ با استفاده از ماتریس الحاقی
 	برای ماتریس \( A \) به شکل زیر:
@@ -878,7 +948,7 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\[
 	\det(A) = ad - bc
 	\]
-	اگر \( \det(A) \neq ۰ \) باشد، ماتریس وارون‌پذیر است.
+	اگر \( \det(A) \neq 0 \) باشد، ماتریس وارون‌پذیر است.
 	
 	۲. ماتریس الحاقی (\( \text{adj}(A) \)) را محاسبه کنید:
 	\[
@@ -899,7 +969,7 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 
 	\end{nokteh}
 	
-\begin{nokteh}[نحوه محاسبه وارون ماریس‌های ۳ در ۳]
+\begin{nokteh}[نحوه محاسبه وارون ماتریس‌های ۳ در ۳]
 	محاسبه‌ی وارون ماتریس ۳×۳ با استفاده از ماتریس الحاقی
 	برای ماتریس \( A \) به شکل زیر:
 	\[
@@ -915,7 +985,7 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\[
 	\det(A) = a(ei - fh) - b(di - fg) + c(dh - eg)
 	\]
-	اگر \( \det(A) \neq ۰ \) باشد، ماتریس وارون‌پذیر است.
+	اگر \( \det(A) \neq 0 \) باشد، ماتریس وارون‌پذیر است.
 	
 	۲. ماتریس کوفاکتور (\( C \)) را محاسبه کنید:
 	\[
@@ -1092,8 +1162,21 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\end{pmatrix}
 	\]
 	
-\end{example}	
+\end{example}
 	\end{scriptsize}
+\begin{code}[محاسبه وارون یک ماتریس]
+	\begin{latin}
+		\lstinputlisting[caption={}]{python_codes/MatrixInvers.py}  
+	\end{latin}
+\end{code}
+
+\begin{code}[محاسبه وارون یک ماتریس مختلط]
+	\begin{latin}
+		\lstinputlisting[caption={}]{python_codes/ComplexMatrixInvers.py}  
+	\end{latin}
+\end{code}
+\section{چند ماتریس خاص}	
+
 	
 	
 	\begin{definition}
@@ -1120,7 +1203,6 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\end{pmatrix}
 	\]
 	
-	---
 	\end{definition}
 	
 	\begin{definition}
@@ -1146,7 +1228,7 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\end{pmatrix}
 	\]
 	
-	---
+
 	\end{definition}
 	\begin{definition}
 		
@@ -1167,7 +1249,6 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\end{pmatrix}
 	\]
 	
-	---
 	\end{definition}
 	
 	\begin{definition}
@@ -1188,7 +1269,6 @@ A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
 	\end{pmatrix}
 	\]
 	
-	---
 	\end{definition}
 	\begin{definition}
 		
@@ -1217,8 +1297,7 @@ A^*=A^H = \overline{A^T}
 		2 - i & 3
 	\end{pmatrix}
 	\]
-	
-	---
+
 	\end{definition}
 	\begin{definition}
 		
@@ -1242,9 +1321,7 @@ A^*=A^H = \overline{A^T}
 		-2 + i & 3i
 	\end{pmatrix}
 	\]
-	
-	---
-	
+
 	\end{definition}
 	\begin{nokteh}[جمع‌بندی]
 		\begin{itemize}
@@ -1267,16 +1344,17 @@ A^*=A^H = \overline{A^T}
 	
 	\begin{nokteh}[چند رابطه مهم]
 \begin{itemize}
-	\item  اگر 
+	\item [1. ] 
+	 اگر 
 	$ A $
 	یک ماتریس حقیقی باشد آنگاه: 
 	$ A^T=A^*$. 
-	\item
+	\item [2. ] 
 	به ازای هر ماتریس 
 	$A$
 	داریم: 
 	$(A^*)^*=A , (A^T)^T=A$
-	\item
+	\item [3. ] 
 	 اگر 
 	 $A+B$
 	 و 
@@ -1284,21 +1362,55 @@ A^*=A^H = \overline{A^T}
 	 قابل تعریف باشند آنگاه:
 	 \[ (A+B)^T=A^T+B^T, ~~~~~~~~ (A+B)^*=A^*+B^*,\]
 	 \[ (AB)^T=B^TA^T, ~~~~~~~~ (AB)^*=B^*A^* .\]
-	 \item 
+	 \item [3. ] 
 	 اگر 
 	 $A$
 	 یک ماتریس مربعی باشد آنگاه: 
-	 $|A| = |A^t|,~~~ |A^*| = |\bar{A}|$.
-	 \item 
+	 $|A| = |A^T|,~~~ |A^*| = |\bar{A}|$.
+	 \item  [4. ] 
 	 اگر
 	 $A$
 	 یک ماتریس نامنفرد(وارون‌پذیر) باشد آنگاه:
 	$(A^T)^{-1}=(A^{-1})^T,~~~(A^*)^{-1}=(A^{-1})^*$.
-	\item 
+	\item  [5. ] 
 	به ازای هر عدد مختلط 
 	$c$
 	داریم: 
 	$(cA)^*=\bar{c}A^*$.
+	
+	\item  [6. ] 
+	اگر
+	$A$
+	یک ماتریس هرمیتی باشد آنگاه دترمینان آن یک عدد حقیقی است و 
+	\[ |A| = |A^*| = |\bar{A}| \]
+	\item [7. ] 
+	اگر
+	$A$
+	یک ماتریس مربعی دلخواه باشد آنگاه می‌توان ماتریس‌های
+	$H$
+	و 
+	$G$
+	را به صورت زیر تعریف کرد
+	\[G=\frac{1}{2}(A+A^*), ~~~~~~~~~~~H=\frac{1}{2i}(A-A^*)\]
+	هر یک از ماتریسهای تعریف شده در قبل هرمیتی هستند و نیز داریم:
+	\[ A=G+iH \]
+	 
+	\item [8. ] 
+	اگر
+	$A$
+	یک ماتریس مربعی دلخواه باشد آنگاه می‌توان ماتریس‌های
+	$H$
+	و 
+	$G$
+	را به صورت زیر تعریف کرد
+	\[G=\frac{1}{2}(A+A^*), ~~~~~~~~~~~H=\frac{1}{2}(A-A^*)\]
+	که
+		$H$
+	یک  ماتریس شبه هرمیتی و 
+	$G$
+	 یک از ماتریس هرمیتی است و  نیز داریم:
+	\[ A=G+H \]
+	
 \end{itemize}
 	\end{nokteh}
 	
@@ -1335,7 +1447,7 @@ A^*=A^H = \overline{A^T}
 	\end{itemize}
 \end{example}
 
-*\begin{definition}[ماتریس یکین یا یکانی ( Matrix Unitary )]
+*\begin{definition}[ماتریس یکانی ( Matrix Unitary )]
 یک ماتریس مربعی \( U \) با ابعاد \( n \times n \) را یکانی (Unitary) می‌نامند اگر معکوس آن برابر با مزدوج هرمیتی آن باشد. به عبارت دیگر، ماتریس \( U \) یکانی است اگر:
 
 \[
@@ -1353,15 +1465,23 @@ U^* U = U U^* = I
 که در آن \( I \) ماتریس یکانی با ابعاد \( n \times n \) است.
 \end{definition}
 
-**ویژگی‌های ماتریس یکانی:**
+\begin{nokteh}[ برخی از ویژگی‌های ماتریس یکانی]
+\begin{itemize}
+	\item 
+	\textbf{حفظ ضرب داخلی: }اگر \( U \) یک ماتریس یکانی باشد، برای هر دو بردار \( x \) و \( y \)، ضرب داخلی \( \langle Ux, Uy \rangle = \langle x, y \rangle \) حفظ می‌شود.
+	\item 
+\textbf{حفظ نرم: }نرم یک بردار تحت تبدیل یکانی تغییر نمی‌کند، یعنی \( \|Ux\| = \|x\| \).
 
-1. **حفظ ضرب داخلی:** اگر \( U \) یک ماتریس یکانی باشد، برای هر دو بردار \( x \) و \( y \)، ضرب داخلی \( \langle Ux, Uy \rangle = \langle x, y \rangle \) حفظ می‌شود.
-2. **حفظ نرم:** نرم یک بردار تحت تبدیل یکانی تغییر نمی‌کند، یعنی \( \|Ux\| = \|x\| \).
-3. **مقادیر ویژه:** مقادیر ویژه یک ماتریس یکانی روی دایره‌ی واحد در صفحه‌ی مختلط قرار دارند، یعنی قدر مطلق آنها برابر با ۱ است.
+\item 
+\textbf{مقادیر ویژه: }مقادیر ویژه یک ماتریس یکانی روی دایره‌ی واحد در صفحه‌ی مختلط قرار دارند، یعنی قدر مطلق آنها برابر با ۱ است.
+\end{itemize}
+\end{nokteh}
+\begin{exercise}
+درستی هر یک از ویژگی‌های فوق را با استفاده از مثال بررسی کنید.
+\end{exercise}
 
-**مثال:**
-
-ماتریس زیر را در نظر بگیرید:
+\begin{example}[ماتریس یکانی]
+	ماتریس زیر را در نظر بگیرید:
 
 \[
 U = \frac{1}{\sqrt{2}} \begin{bmatrix}
@@ -1394,6 +1514,8 @@ U^* U = \frac{1}{2} \begin{bmatrix}
 	1 \cdot 1 + (-i) \cdot i & 1 \cdot i + (-i) \cdot 1 \\
 	-i \cdot 1 + 1 \cdot i & -i \cdot i + 1 \cdot 1
 \end{bmatrix}
+\]
+\[
 = \frac{1}{2} \begin{bmatrix}
 	1 + 1 & i - i \\
 	-i + i & 1 + 1
@@ -1406,88 +1528,238 @@ U^* U = \frac{1}{2} \begin{bmatrix}
 \]
 
 چون \( U^* U = I \)، ماتریس \( U \) یکانی است.
-
-**کاربرد ماتریس‌های یکانی:**
-
-ماتریس‌های یکانی در مکانیک کوانتومی، پردازش سیگنال، و نظریه‌ی اطلاعات کاربردهای گسترده‌ای دارند. به ویژه، در مکانیک کوانتومی، تبدیل‌های یکانی برای توصیف تحول زمانی سیستم‌های کوانتومی استفاده می‌شوند.
-\section{کدهای پایتون}
-\begin{code}[تعریف بردار و ماتریس در پایتون]
-	در سطر سوم برنامه زیر یک بردار و در سطر پنجم یک ماتریس در محیط پایتون تعریف شده‌اند. برای تعریف این دو نیاز به کتابخانه numpy وجود دارد که در سطر اول این کتابخانه وارد و از np به عنوان اختصار آن استفاده شده است.
-	\begin{latin}
-		\lstinputlisting[caption={}]{python_codes/VectorAndMatrix.py}  
-	\end{latin}
-\end{code}
-\begin{code}[محاسبه نُرم‌های مختلف یک ماتریس در پایتون]
-	\begin{latin}
-		\lstinputlisting[caption={}]{python_codes/MatrixNorm.py} 
-		\texttt{Norm 1 (Column Norm): 9.0\\
-		Infinity Norm (Row Norm): 8.0\\
-		Frobenius Norm: 7.810249675906654\\
-		Spectral Norm (Largest Singular Value): 6.40854048954407 }
-	\end{latin}
-\end{code}
-
-\begin{code}[محاسبه تقریبی نُرم 1 یک ماتریس با استفاده از هزار بردار تصادفی غیر صفر]
-	\begin{latin}
-		\lstinputlisting[caption={}]{python_codes/DefMatrixNorm1.py}  
-		\texttt{Approximate Norm 1: 8.396903386801652}
-	\end{latin}
-\end{code}
-\begin{code}[محاسبه دترمینان یک ماتریس]
-	\begin{latin}
-		\lstinputlisting[caption={}]{python_codes/DetMatrix.py}  
-\texttt{Determinant of matrix A:\\
--286.0}
-	\end{latin}
-\end{code}
-
-\begin{small}
-	\begin{code}[محاسبه وارون یک ماتریس]
-	\begin{latin}
-		\lstinputlisting[caption={}]{python_codes/MatrixInvers.py}  
-	\end{latin}
-\end{code}
-\end{small}
-
-
-\begin{code}[محاسبه وارون یک ماتریس مختلط]
-	\begin{latin}
-		\lstinputlisting[caption={}]{python_codes/ComplexMatrixInvers.py}  
-	\end{latin}
-\end{code}
-\section{تمرین‌ها}
+\end{example}
 \begin{exercise}
-	\begin{itemize}
-		\item 
-برای ماتریس‌های صفر و ماتریس‌های همانی انواع نُرم‌های ماتریسی را بدست آورید. چه نتیجه‌ای می‌توان گرفت؟
-\item 
-ماتریس زیر را در نظر بگیرید هر یک از نُرم‌های ماتریس روی آن را محاسبه کنید.
+نشان دهید اگر ماتریس‌های 
+$A$
+و 
+$B$
+یکانی باشند آنگاه 
+$AB$
+نیز یکانی خواهد بود.
+\end{exercise}
+\begin{definition} [ماتریس نرمال]
+	
+
+ماتریس \( A \) را نرمال می‌گوییم اگر با مزدوج ترانهاده‌ی خود جا به جا (در ضرب) شود. به عبارت دیگر، ماتریس \( A \) نرمال است اگر شرط زیر برقرار باشد:
+
 \[
-D =
-\begin{bmatrix}
-	d_1 & 0 & 0 & \dots & 0 \\
-	0 & d_2 & 0 & \dots & 0 \\
-	0 & 0 & d_3 & \dots & 0 \\
-	\vdots & \vdots & \vdots & \ddots & \vdots \\
-	0 & 0 & 0 & \dots & d_n
-\end{bmatrix}
+A A^H = A^H A
 \]
-\item
-ماتریس \( A \) و بردار \( \mathbf{x} \) به صورت زیر داده شده‌اند:
+
+که در آن \( A^H \) مزدوج ترانهاده‌ی ماتریس \( A \) است (یعنی \( A^H = \overline{A^T} \)).
+
+\end{definition}
+\begin{nokteh}
+	\begin{itemize}
+		\item [1. ]
+		هر ماتریس هرمیتی (\( A = A^H \)) نرمال است.
+		\item[2.] 
+		هر ماتریس یکانی (\( A^H = A^{-1} \)) نرمال است.
+	\end{itemize}
+\end{nokteh}
+\begin{example}
+	\begin{itemize}
+		\item [1. ]
+ ماتریس هرمیتی:
 \[
 A = \begin{pmatrix}
-	1 & 2 \\
-	3 & 4
-\end{pmatrix}, \quad
-\mathbf{x} = \begin{pmatrix}
-	1 \\
-	-1
+	1 & 2 + i \\
+	2 - i & 3
 \end{pmatrix}
 \]
-حاصل \( \|A\mathbf{x}\|_2 \) و \( \|A\|_2 \cdot \|\mathbf{x}\|_2 \) را محاسبه کنید و نشان دهید که نابرابری زیر برقرار است:
+این ماتریس هرمیتی است و بنابراین نرمال است.
+	\item [2. ]
+
+ماتریس یکانی:
 \[
-\|A\mathbf{x}\|_2 \leq \|A\|_2 \cdot \|\mathbf{x}\|_2
+A = \frac{1}{\sqrt{2}} \begin{pmatrix}
+	1 & -1 \\
+	1 & 1
+\end{pmatrix}
 \]
+این ماتریس یکانی است و بنابراین نرمال است.
+	\item [3. ]
+
+ ماتریس نرمال غیرهرمیتی و غیریکانی:
+\[
+A = \begin{pmatrix}
+	1 & -1 \\
+	1 & 1
+\end{pmatrix}
+\]
+این ماتریس نرمال است، زیرا:
+\[
+A A^H = A^H A = \begin{pmatrix}
+	2 & 0 \\
+	0 & 2
+\end{pmatrix}
+\]
+	\end{itemize}
+\end{example}
+
+\begin{example}
+	
+
+برای بررسی نرمال بودن یک ماتریس \( A \)، باید \( A A^H \) و \( A^H A \) را محاسبه کرده و بررسی کنیم که آیا با هم برابر هستند یا خیر.
+
+مثال:
+ماتریس زیر را در نظر بگیرید:
+\[
+A = \begin{pmatrix}
+	1 & 1 \\
+	0 & 1
+\end{pmatrix}
+\]
+مزدوج ترانهاده‌ی آن (\( A^H \)) به صورت زیر است:
+\[
+A^H = \begin{pmatrix}
+	1 & 0 \\
+	1 & 1
+\end{pmatrix}
+\]
+حال \( A A^H \) و \( A^H A \) را محاسبه می‌کنیم:
+\[
+A A^H = \begin{pmatrix}
+	1 & 1 \\
+	0 & 1
+\end{pmatrix} \begin{pmatrix}
+	1 & 0 \\
+	1 & 1
+\end{pmatrix} = \begin{pmatrix}
+	2 & 1 \\
+	1 & 1
+\end{pmatrix}
+\]
+\[
+A^H A = \begin{pmatrix}
+	1 & 0 \\
+	1 & 1
+\end{pmatrix} \begin{pmatrix}
+	1 & 1 \\
+	0 & 1
+\end{pmatrix} = \begin{pmatrix}
+	1 & 1 \\
+	1 & 2
+\end{pmatrix}
+\]
+چون \( A A^H \neq A^H A \)، این ماتریس نرمال نیست.
+\end{example}
+\begin{definition}
+	
+
+ماتریس \( A \) را متعامد (Orthogonal) می‌گوییم اگر ترانهاده‌ی آن معادل  معکوس آن باشد. به عبارت دیگر، ماتریس \( A \) متعامد است اگر شرط زیر برقرار باشد:
+
+\[
+A^T = A^{-1}
+\]
+
+یا به طور معادل:
+\[
+A^T A = A A^T = I
+\]
+که در آن \( I \) ماتریس همانی است.
+
+\end{definition}
+\begin{nokteh}[ ویژگی‌های مهم ماتریس‌های متعامد]
+	
+\begin{itemize}
+	\item[1. ] 
+	\textbf{حفظ ضرب داخلی: }ماتریس‌های متعامد، ضرب داخلی بردارها را حفظ می‌کنند. یعنی برای هر دو بردار \( \mathbf{u} \) و \( \mathbf{v} \)، داریم:
+	\[
+	\langle A \mathbf{u}, A \mathbf{v} \rangle = \langle \mathbf{u}, \mathbf{v} \rangle
+	\]
+	
+	\item [2. ]  \textbf{حفظ ضرب داخلی:}
+ماتریس‌های متعامد، طول (نرم) بردارها را حفظ می‌کنند. یعنی برای هر بردار \( \mathbf{u} \)، داریم:
+	\[
+	\| A \mathbf{u} \| = \| \mathbf{u} \|
+	\]
+	
+	\item [3. ] \textbf{دترمینان ماتریس متعامد:}
+	دترمینان یک ماتریس متعامد یا \(1 \) است یا \( -1 \):
+	\[
+	\det(A) = \pm 1
+	\]
+	
+	\item [4. ] \textbf{سطرها و ستون‌های متعامد:}
+سطرها و ستون‌های یک ماتریس متعامد، بردارهای متعامد (عمود بر هم) و یکه (با طول ۱) هستند.
+	
 \end{itemize}
+
+\end{nokteh}
+
+\begin{example}[ مثال‌هایی از ماتریس‌های متعامد]
+\begin{itemize}
+	\item[1. ] 	
+\textbf{ماتریس چرخش:}
+ماتریس چرخش در صفحه‌ی دو بعدی به زاویه‌ی \( \theta \) به صورت زیر است:
+\[
+A = \begin{pmatrix}
+	\cos \theta & -\sin \theta \\
+	\sin \theta & \cos \theta
+\end{pmatrix}
+\]
+این ماتریس متعامد است، زیرا:
+\[
+A^T A = \begin{pmatrix}
+	\cos \theta & \sin \theta \\
+	-\sin \theta & \cos \theta
+\end{pmatrix} \begin{pmatrix}
+	\cos \theta & -\sin \theta \\
+	\sin \theta & \cos \theta
+\end{pmatrix} = \begin{pmatrix}
+	1 & 0 \\
+	0 & 1
+\end{pmatrix} = I
+\]	
+
+\item [2. ] 
+\textbf{ماتریس بازتاب:}
+ماتریس بازتاب نسبت به محور \( x \) به صورت زیر است:
+\[
+A = \begin{pmatrix}
+	1 & 0 \\
+	0 & -1
+\end{pmatrix}
+\]
+این ماتریس متعامد است، زیرا:
+\[
+A^T A = \begin{pmatrix}
+	1 & 0 \\
+	0 & -1
+\end{pmatrix} \begin{pmatrix}
+	1 & 0 \\
+	0 & -1
+\end{pmatrix} = \begin{pmatrix}
+	1 & 0 \\
+	0 & 1
+\end{pmatrix} = I
+\]
+
+
+
+بررسی متعامد بودن یک ماتریس
+
+برای بررسی متعامد بودن یک ماتریس \( A \)، باید \( A^T A \) و \( A A^T \) را محاسبه کرده و بررسی کنیم که آیا با ماتریس همانی \( I \) برابر هستند یا خیر.
+\end{itemize}	
+\end{example}
+
+\begin{exercise}
+ماتریس زیر را در نظر بگیرید:
+\[
+A = \begin{pmatrix}
+	\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+	\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+\end{pmatrix}
+\]
+نشان دهید این ماتریس متعامد است.
 \end{exercise}
+
+\begin{exercise}
+	برنامه‌ای به زبان پایتون بنویسید که در آن یک ماتریس به عنوان ورودی گرفته شود و متعامد بودن یا نبودن آن، نرمال بودن یا نبودن آن، یکانی بودن یا نبودن آن و هرمیتی بودن یا نبودن آن را به عنوان خروجی نمایش دهد.
+\end{exercise}
+
+
+
 %\end{landscape} 

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.8.16)  9 MAR 2025 12:57
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.8.16)  6 APR 2025 12:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1541,15 +1541,25 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [15]
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 14.39996pt on input line 509.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 510.
+
+(./python_codes/VectorAndMatrix.py
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 7.19998pt on input line 1.
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1.
+)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [16]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [17]
+[17] (./python_codes/MatrixNorm.py)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [18]
+(./python_codes/DefMatrixNorm1.py)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [19]
@@ -1559,87 +1569,49 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [21]
-Overfull \vbox (12.6451pt too high) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-[22]
-Missing character: There is no ۰ ("6F0) in font cmr12!
-Missing character: There is no ۰ ("6F0) in font cmr12!
-
+ [22]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [23]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \vbox (12.6451pt too high) has occurred while \output is active []
 
- [24]
-LaTeX Font Info:    Font shape `TU/Yas(0)/b/n' will be
-(Font)              scaled to size 9.59998pt on input line 987.
-LaTeX Font Info:    Font shape `TU/Yas(0)/b/it' will be
-(Font)              scaled to size 9.59998pt on input line 987.
 
-Missing character: There is no ۰ ("6F0) in font cmr8!
-LaTeX Font Info:    Font shape `TU/Yas(0)/m/n' will be
-(Font)              scaled to size 5.99998pt on input line 1057.
-Missing character: There is no ۱ ("6F1) in font cmr8!
-
+[24] (./python_codes/DetMatrix.py)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25]
-Overfull \vbox (53.90388pt too high) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-[26]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 14.39996pt on input line 1102.
-
+ [26]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [27]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Font Info:    Font shape `TU/Yas(0)/b/n' will be
+(Font)              scaled to size 9.59998pt on input line 1057.
+LaTeX Font Info:    Font shape `TU/Yas(0)/b/it' will be
+(Font)              scaled to size 9.59998pt on input line 1057.
 
- [28]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [29]
-[30]
-Overfull \hbox (19.14658pt too wide) detected at line 1406
-\OML/cmm/m/it/12 U[]U \OT1/cmr/m/n/12 = [] [] [] = [] [] = [] [] = [] = \OML/cm
-m/m/it/12 I
+Missing character: There is no ۰ ("6F0) in font cmr8!
+LaTeX Font Info:    Font shape `TU/Yas(0)/m/n' will be
+(Font)              scaled to size 5.99998pt on input line 1127.
+Missing character: There is no ۱ ("6F1) in font cmr8!
+(./python_codes/MatrixInvers.py
+Overfull \hbox (25.82495pt too wide) in paragraph at lines 16--18
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] []
  []
 
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 1417.
-(./python_codes/VectorAndMatrix.py
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 7.19998pt on input line 1.
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1.
-) (./python_codes/MatrixNorm.py) [31]
-(./python_codes/DefMatrixNorm1.py) (./python_codes/DetMatrix.py)
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [32]
-LaTeX Font Info:    Font shape `TU/Yas(0)/m/n' will be
-(Font)              scaled to size 13.13995pt on input line 1444.
-LaTeX Font Info:    Font shape `TU/Yas(0)/b/n' will be
-(Font)              scaled to size 13.13995pt on input line 1445.
-LaTeX Font Info:    Font shape `TU/Yas(0)/b/it' will be
-(Font)              scaled to size 13.13995pt on input line 1445.
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 13.13995pt on input line 1446.
-
-(./python_codes/MatrixInvers.py
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1.
-
-Overfull \hbox (153.80496pt too wide) in paragraph at lines 21--23
+Overfull \hbox (213.02686pt too wide) in paragraph at lines 21--23
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][] []
  []
 
 
-Overfull \hbox (166.94507pt too wide) in paragraph at lines 43--44
+Overfull \hbox (227.427pt too wide) in paragraph at lines 43--44
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][][][] []
@@ -1648,22 +1620,108 @@ Overfull \hbox (166.94507pt too wide) in paragraph at lines 43--44
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [33]
-(./python_codes/ComplexMatrixInvers.py)
+ [28]
+Overfull \vbox (53.90388pt too high) has occurred while \output is active []
+
+
+[29]
+Overfull \vbox (15.59647pt too high) has occurred while \output is active []
+
+
+[30] (./python_codes/ComplexMatrixInvers.py) [31]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [34])
-[35] (./lecture_notes.aux (./moghadamat.aux))
+ [32]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [33]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [34]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [35]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [36]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [37]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [38])
+(./chapter-2.tex [39] [40
+
+]
+فصل 2.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [41]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [42]
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 227--230
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 232--234
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 236--240
+[][]
+ []
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 241--245
+[][]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [45]
+Underfull \hbox (badness 10000) in paragraph at lines 377--378
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--428
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 460--464
+[][]
+ []
+
+
+Underfull \vbox (badness 7944) has occurred while \output is active []
+
+ [46]
+Underfull \hbox (badness 10000) in paragraph at lines 502--504
+[][]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [47])
+[48] (./lecture_notes.aux (./moghadamat.aux))
 Package rerunfilecheck Info: File `lecture_notes.out' has not changed.
-(rerunfilecheck)             Checksum: 88FA9E903C2CF298E3D39CE8D47EE7D5;2626.
+(rerunfilecheck)             Checksum: A5207DE4AD59BE9F54F06CF8C949F157;3290.
  ) 
 Here is how much of TeX's memory you used:
- 42615 strings out of 476683
- 1050011 string characters out of 5801401
- 1929012 words of memory out of 5000000
- 62043 multiletter control sequences out of 15000+600000
- 519622 words of font info for 114 fonts, out of 8000000 for 9000
+ 42632 strings out of 476683
+ 1050005 string characters out of 5801401
+ 1919012 words of memory out of 5000000
+ 62064 multiletter control sequences out of 15000+600000
+ 519574 words of font info for 108 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 99i,15n,104p,1327b,1522s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,15n,104p,1327b,1521s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on lecture_notes.pdf (35 pages).
+Output written on lecture_notes.pdf (48 pages).
