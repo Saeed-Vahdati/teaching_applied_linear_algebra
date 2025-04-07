@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.8.16)  6 APR 2025 12:38
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.8.16)  6 APR 2025 21:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1681,47 +1681,61 @@ Underfull \hbox (badness 10000) in paragraph at lines 241--245
 [][]
  []
 
-
+(./python_codes/MatrixInverseMethod.py)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [45]
-Underfull \hbox (badness 10000) in paragraph at lines 377--378
+Underfull \hbox (badness 10000) in paragraph at lines 382--383
+[][]
+ []
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 429--433
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 424--428
+Underfull \hbox (badness 10000) in paragraph at lines 465--469
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 460--464
+Underfull \hbox (badness 10000) in paragraph at lines 507--509
 [][]
  []
 
 
-Underfull \vbox (badness 7944) has occurred while \output is active []
-
- [46]
-Underfull \hbox (badness 10000) in paragraph at lines 502--504
+Underfull \hbox (badness 10000) in paragraph at lines 575--579
 [][]
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 582--584
+[][]
+ []
+
+[47]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [47])
-[48] (./lecture_notes.aux (./moghadamat.aux))
+ [48]
+Overfull \vbox (402.80455pt too high) has occurred while \output is active []
+
+
+[49] (./python_codes/GaussianElimination.py))
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [50]
+[51] (./lecture_notes.aux (./moghadamat.aux))
 Package rerunfilecheck Info: File `lecture_notes.out' has not changed.
 (rerunfilecheck)             Checksum: A5207DE4AD59BE9F54F06CF8C949F157;3290.
  ) 
 Here is how much of TeX's memory you used:
- 42632 strings out of 476683
- 1050005 string characters out of 5801401
+ 42653 strings out of 476683
+ 1050568 string characters out of 5801401
  1919012 words of memory out of 5000000
- 62064 multiletter control sequences out of 15000+600000
+ 62079 multiletter control sequences out of 15000+600000
  519574 words of font info for 108 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  99i,15n,104p,1327b,1521s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on lecture_notes.pdf (48 pages).
+Output written on lecture_notes.pdf (51 pages).
