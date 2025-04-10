@@ -17,3 +17,4 @@
 \contentsline {section}{\numberline {2.1}حل دستگاه معادلات خطی}{44}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}روش ماتریس معکوس}{44}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}روش حذفی گاوس}{46}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}روش حذفی گاوس جردن}{51}{section.2.2}%
